@@ -1,0 +1,19 @@
+.header {
+  width: 880px;
+  height: 74px;
+  flex-shrink: 0;
+}
+
+.header__image {
+  width: 173px;
+  height: 33px;
+  flex-shrink: 0;
+  fill: #fff;
+}
+
+.header__line {
+  width: 880px;
+  height: 1px;
+  opacity: 0.699999988079071;
+  background: #545454;
+}
