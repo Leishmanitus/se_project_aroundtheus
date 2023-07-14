@@ -1,11 +1,19 @@
 .header {
-  width: 880px;
+  max-width: 880px;
+  max-height: 74px;
+  grid-area: header;
+  display: flex;
+  flex-flow: nowrap column;
+  justify-content: space-between;
 }
 
 .header__image {
-  width: 173px;
+  max-width: 173px;
+  /* margin-bottom: 41px; */
 }
 
 .header__line {
-  max-width: 880px;
+  content: "";
+  flex-grow: 100;
+  border-bottom: 1px solid #545454;
 }

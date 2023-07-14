@@ -1,0 +1,21 @@
+.profile {
+  grid-area: profile;
+}
+
+.profile__image {
+}
+
+.profile__name {
+}
+
+.profile__description {
+}
+
+.profile__button {
+}
+
+.profile__button_type_edit {
+}
+
+.profile__button_type_add {
+}
