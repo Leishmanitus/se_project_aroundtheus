@@ -9,3 +9,16 @@
     "cards"
     "footer";
 }
+
+.page__content {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+}
+
+.page__cards {
+  grid-area: cards;
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  gap: 10px;
+}
