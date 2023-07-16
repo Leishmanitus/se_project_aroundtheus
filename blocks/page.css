@@ -10,15 +10,31 @@
     "footer";
 }
 
+.page__header {
+  grid-area: header;
+  margin: 0 0 40px 0;
+}
+
 .page__content {
-  display: flex;
-  flex-direction: column;
-  align-content: center;
+  display: grid;
+}
+
+.page__profile {
+  grid-area: profile;
+  margin: 0 0 51px 0;
 }
 
 .page__cards {
   grid-area: cards;
+  max-width: 880px;
+  max-height: 742px;
   display: grid;
-  grid-template-columns: repeat(3, auto);
+  grid-template-columns: repeat(3, minmax(auto, 282px));
+  grid-template-rows: repeat(2, minmax(auto, 361px));
   gap: 10px;
+}
+
+.page__footer {
+  grid-area: footer;
+  margin: 67px 0 0 0;
 }

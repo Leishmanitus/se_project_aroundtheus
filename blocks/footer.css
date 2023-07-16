@@ -1,3 +1,5 @@
 .footer {
-  grid-area: footer;
+  max-width: 318px;
+  max-height: 18px;
+  color: #545454;
 }
