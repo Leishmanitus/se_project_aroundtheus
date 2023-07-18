@@ -1,23 +1,22 @@
 .avatar {
   grid-area: avatar;
-
   position: relative;
   max-width: 120px;
   max-height: 120px;
+  margin: 0 30px 0 0;
 }
 
 .avatar__image {
+  z-index: 0;
   width: 100%;
 }
 
 .avatar__ellipse {
+  z-index: 1;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 100%;
   height: 100%;
-  border-radius: 50%;
-  background: lightgray 50% no-repeat;
-  background-size: cover;
 }

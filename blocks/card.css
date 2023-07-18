@@ -8,23 +8,28 @@
 
 .card__image {
   width: 100%;
+  border-radius: 10px;
 }
 
 .card__info {
   display: flex;
   flex-flow: row wrap;
-  text-overflow: ellipsis;
   align-items: center;
   justify-content: space-between;
   margin: auto 20px auto 30px;
 }
 
 .card__caption {
+  max-width: 200px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
   color: #000;
   font-family: Inter;
   font-size: 24px;
   line-height: 1.2;
   font-weight: 900;
+  margin: 0;
 }
 
 .card__heart-button {

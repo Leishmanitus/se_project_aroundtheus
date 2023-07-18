@@ -1,27 +1,39 @@
 .profile {
   max-width: 880px;
   max-height: 120px;
+  /* display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  justify-content: space-between; */
   display: grid;
-  grid-template-areas:
-    "avatar profile-name edit-button add-button"
-    "avatar profile-description . add-button";
+  grid-template-areas: "avatar profile-info . add-button";
+  align-items: center;
+  grid-template-columns: 120px 415px auto 150px;
 }
 
 .profile__info {
+  grid-area: profile-info;
   max-width: 415px;
   max-height: 77px;
-  display: flex;
-  flex-flow: row wrap;
+  display: grid;
+  grid-template-areas:
+    "profile-name"
+    "profile-description";
   align-items: center;
-  justify-content: flex-start;
+  grid-template-columns: minmax(auto, 373px) 24px;
+  grid-template-rows: 48px 22px;
+  column-gap: 18px;
+  row-gap: 7px;
 }
 
 .profile__name {
   grid-area: profile-name;
+  display: flex;
+  align-items: center;
   color: #fff;
   font-family: Inter;
   font-size: 42px;
-  line-height: 1.15;
+  line-height: normal;
   font-weight: 500;
   margin: 0;
 }
@@ -43,7 +55,7 @@
 
 .profile__button_type_edit {
   grid-area: edit-button;
-  flex: 1 1;
+  flex: 1;
   max-width: 24px;
   max-height: 24px;
   background: url(../images/edit-button.svg) center no-repeat;
@@ -54,12 +66,11 @@
 
 .profile__button_type_add {
   grid-area: add-button;
-  flex: 1 1;
   max-width: 150px;
   max-height: 50px;
   background: url(../images/add-button.svg) center no-repeat;
   background-size: cover;
   justify-self: flex-end;
   border: none;
-  box-sizing: content-box;
+  padding: 25px 75px;
 }

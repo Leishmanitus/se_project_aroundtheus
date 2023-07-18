@@ -1,5 +1,6 @@
 .page {
   margin: 45px 200px 60px;
+  max-width: 1280px;
   background-color: #000;
   color: #fff;
   display: grid;
@@ -8,6 +9,7 @@
     "profile"
     "cards"
     "footer";
+  justify-content: center;
 }
 
 .page__header {
@@ -17,6 +19,9 @@
 
 .page__content {
   display: grid;
+  grid-template-areas:
+    "profile"
+    "cards";
 }
 
 .page__profile {
@@ -31,7 +36,7 @@
   display: grid;
   grid-template-columns: repeat(3, minmax(auto, 282px));
   grid-template-rows: repeat(2, minmax(auto, 361px));
-  gap: 10px;
+  gap: 17px;
 }
 
 .page__footer {
