@@ -1,5 +1,5 @@
 .page {
-  margin: 45px 200px 60px;
+  margin: 45px auto 60px;
   max-width: 1280px;
   background-color: #000;
   color: #fff;
@@ -32,10 +32,9 @@
 .page__cards {
   grid-area: cards;
   max-width: 880px;
-  max-height: 742px;
   display: grid;
   grid-template-columns: repeat(3, minmax(auto, 282px));
-  grid-template-rows: repeat(2, minmax(auto, 361px));
+  grid-template-rows: repeat(auto, minmax(auto, 361px));
   gap: 17px;
 }
 
@@ -45,4 +44,11 @@
 }
 
 @media screen and (max-width: 780px) {
+  .page__cards {
+    grid-template-columns: repeat(2, minmax(auto, 282px));
+    grid-template-rows: repeat(auto, minmax(auto, 361px));
+  }
+}
+
+@media screen and (max-width: 320px) {
 }

@@ -9,6 +9,7 @@
   grid-template-areas: "avatar profile-info . add-button";
   align-items: center;
   grid-template-columns: minmax(auto, 150px) minmax(auto, 415px) auto 150px;
+  grid-template-rows: 120px;
 }
 
 .profile__avatar {
