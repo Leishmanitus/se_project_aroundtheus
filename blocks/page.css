@@ -43,3 +43,6 @@
   grid-area: footer;
   margin: 67px 0 0 0;
 }
+
+@media screen and (max-width: 780px) {
+}

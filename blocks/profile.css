@@ -8,7 +8,16 @@
   display: grid;
   grid-template-areas: "avatar profile-info . add-button";
   align-items: center;
-  grid-template-columns: 120px 415px auto 150px;
+  grid-template-columns: minmax(auto, 150px) minmax(auto, 415px) auto 150px;
+}
+
+.profile__avatar {
+  grid-area: avatar;
+  position: relative;
+  max-width: 120px;
+  max-height: 120px;
+  margin: 0 30px 0 0;
+  border-radius: 50%;
 }
 
 .profile__info {
@@ -19,7 +28,7 @@
   grid-template-areas:
     "profile-name"
     "profile-description";
-  align-items: center;
+  align-items: flex-end;
   grid-template-columns: minmax(auto, 373px) 24px;
   grid-template-rows: 48px 22px;
   column-gap: 18px;
@@ -58,17 +67,18 @@
   flex: 1;
   max-width: 24px;
   max-height: 24px;
-  background: url(../images/edit-button.svg) center no-repeat;
+  background: transparent url(../images/edit-button.svg) center no-repeat;
   background-size: cover;
   border: none;
   padding: 12px 12px;
+  margin: 0 0 0 18px;
 }
 
 .profile__button_type_add {
   grid-area: add-button;
   max-width: 150px;
   max-height: 50px;
-  background: url(../images/add-button.svg) center no-repeat;
+  background: transparent url(../images/add-button.svg) center no-repeat;
   background-size: cover;
   justify-self: flex-end;
   border: none;
