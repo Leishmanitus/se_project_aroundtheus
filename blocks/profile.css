@@ -1,43 +1,44 @@
 .profile {
   max-width: 880px;
-  max-height: 120px;
-  /* display: flex;
+  display: flex;
   flex-flow: row wrap;
   align-items: center;
-  justify-content: space-between; */
-  display: grid;
+  justify-content: space-between;
+  /* display: grid;
   grid-template-areas: "avatar profile-info . add-button";
   align-items: center;
   grid-template-columns: minmax(auto, 150px) minmax(auto, 415px) auto 150px;
-  grid-template-rows: 120px;
+  grid-template-rows: 120px; */
 }
 
 .profile__avatar {
-  grid-area: avatar;
+  /* grid-area: avatar; */
   position: relative;
   max-width: 120px;
-  max-height: 120px;
   margin: 0 30px 0 0;
   border-radius: 50%;
 }
 
 .profile__info {
-  grid-area: profile-info;
+  /* grid-area: profile-info; */
   max-width: 415px;
   max-height: 77px;
-  display: grid;
+  /* display: grid;
   grid-template-areas:
     "profile-name"
     "profile-description";
   align-items: flex-end;
-  grid-template-columns: minmax(auto, 373px) 24px;
+  grid-template-columns: minmax(auto, 415px);
   grid-template-rows: 48px 22px;
   column-gap: 18px;
-  row-gap: 7px;
+  row-gap: 7px; */
+  display: flex;
+  flex-flow: column nowrap;
+  margin: 0 0 7px 0;
 }
 
 .profile__name {
-  grid-area: profile-name;
+  /* grid-area: profile-name; */
   display: flex;
   align-items: center;
   color: #fff;
@@ -49,7 +50,7 @@
 }
 
 .profile__description {
-  grid-area: profile-description;
+  /* grid-area: profile-description; */
   color: #fff;
   max-width: 415px;
   font-family: Inter;
@@ -64,7 +65,7 @@
 }
 
 .profile__button_type_edit {
-  grid-area: edit-button;
+  /* grid-area: edit-button; */
   flex: 1;
   max-width: 24px;
   max-height: 24px;
@@ -76,7 +77,7 @@
 }
 
 .profile__button_type_add {
-  grid-area: add-button;
+  /* grid-area: add-button; */
   max-width: 150px;
   max-height: 50px;
   background: transparent url(../images/add-button.svg) center no-repeat;
@@ -84,4 +85,32 @@
   justify-self: flex-end;
   border: none;
   padding: 25px 75px;
+  margin: 0 0 0 auto;
+}
+
+@media screen and (max-width: 780px) {
+  .profile {
+    flex-flow: column nowrap;
+    justify-content: center;
+  }
+
+  .profile__avatar {
+    margin: 0 0 30px 0;
+  }
+
+  .profile__info {
+    margin: 0 0 36px 0;
+  }
+
+  .profile__name {
+    margin: 0 0 14px 0;
+  }
+
+  .profile__button_type_edit {
+    margin: 0 0 0 10px;
+  }
+
+  .profile__button_type_add {
+    margin: 0;
+  }
 }

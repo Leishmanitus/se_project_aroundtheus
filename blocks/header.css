@@ -1,19 +1,26 @@
 .header {
   max-width: 880px;
-  max-height: 74px;
-  grid-area: header;
-  display: flex;
-  flex-flow: nowrap column;
-  justify-content: space-between;
+  margin: 0 0 40px 0;
+  /* grid-area: header; */
 }
 
 .header__image {
   max-width: 173px;
-  margin-bottom: 41px;
+  margin: 0 0 41px 0;
 }
 
 .header__line {
   content: "";
-  flex-grow: 1;
+  flex: 1;
   border-bottom: 1px solid #545454;
+}
+
+@media screen and (max-width: 780px) {
+  .header {
+    margin: 0 0 42px 0;
+  }
+
+  .header__image {
+    margin: 0 0 32px 0;
+  }
 }
