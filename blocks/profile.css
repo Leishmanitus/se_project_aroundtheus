@@ -13,7 +13,6 @@
 
 .profile__avatar {
   /* grid-area: avatar; */
-  position: relative;
   max-width: 120px;
   margin: 0 30px 0 0;
   border-radius: 50%;
@@ -42,9 +41,9 @@
   display: flex;
   align-items: center;
   color: #fff;
-  font-family: Inter;
+  font-family: Inter, Arial, Helvetica, sans-serif;
   font-size: 42px;
-  line-height: normal;
+  line-height: 1.2;
   font-weight: 500;
   margin: 0;
 }
@@ -53,7 +52,7 @@
   /* grid-area: profile-description; */
   color: #fff;
   max-width: 415px;
-  font-family: Inter;
+  font-family: Inter, Arial, Helvetica, sans-serif;
   font-size: 18px;
   line-height: 1.2;
   font-weight: 400;
@@ -72,6 +71,7 @@
   background: transparent url(../images/edit-button.svg) center no-repeat;
   background-size: cover;
   border: none;
+  cursor: pointer;
   padding: 12px 12px;
   margin: 0 0 0 18px;
 }
@@ -84,6 +84,7 @@
   background-size: cover;
   justify-self: flex-end;
   border: none;
+  cursor: pointer;
   padding: 25px 75px;
   margin: 0 0 0 auto;
 }
@@ -111,7 +112,20 @@
   }
 
   .profile__button_type_add {
+    background: transparent url(../images/plus.svg) center no-repeat;
+    border: 2px solid #fff;
+    border-radius: 2px;
     margin: 0;
     padding: 25px 141px;
+  }
+}
+
+@media screen and (max-width: 380px) {
+  .profile__name {
+    font-size: 22px;
+  }
+
+  .page__description {
+    font-size: 14px;
   }
 }

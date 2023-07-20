@@ -11,21 +11,20 @@
 
 .header__line {
   content: "";
-  flex: 1;
+  width: 100%;
   border-bottom: 1px solid #545454;
 }
 
 @media screen and (max-width: 780px) {
   .header {
+    width: 100%;
     margin: 0 0 42px 0;
   }
 
   .header__image {
-    margin: 0 0 32px 0;
+    margin: 0 0 32px 27px;
   }
 }
 
 @media screen and (max-width: 320px) {
-  .header {
-  }
 }
