@@ -78,8 +78,8 @@
 
 .profile__button_type_add {
   /* grid-area: add-button; */
-  max-width: 150px;
-  max-height: 50px;
+  /* max-width: 150px;
+  max-height: 50px; */
   background: transparent url(../images/add-button.svg) center no-repeat;
   background-size: cover;
   justify-self: flex-end;
@@ -112,5 +112,6 @@
 
   .profile__button_type_add {
     margin: 0;
+    padding: 25px 141px;
   }
 }

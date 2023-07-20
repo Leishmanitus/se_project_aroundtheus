@@ -51,9 +51,14 @@
 }
 
 @media screen and (max-width: 780px) {
-  /* .page {
-  } */
+  .page__header {
+    flex-flow: column wrap;
+    flex-shrink: 0;
+  }
 }
 
 @media screen and (max-width: 320px) {
+  .page__cards {
+    grid-template-columns: 282px;
+  }
 }
