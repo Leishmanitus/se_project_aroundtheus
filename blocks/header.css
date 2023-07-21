@@ -1,7 +1,6 @@
 .header {
   max-width: 880px;
   margin: 0 0 40px 0;
-  /* grid-area: header; */
 }
 
 .header__image {
@@ -27,4 +26,7 @@
 }
 
 @media screen and (max-width: 320px) {
+  .header__image {
+    max-width: 126px;
+  }
 }
