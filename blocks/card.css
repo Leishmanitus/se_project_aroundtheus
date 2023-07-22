@@ -37,4 +37,9 @@
   background-size: cover;
   border: none;
   padding: 9px 10.5px;
+  cursor: pointer;
+}
+
+.card__heart-button:hover {
+  opacity: 0.5;
 }
