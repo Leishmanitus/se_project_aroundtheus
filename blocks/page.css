@@ -37,12 +37,16 @@
 }
 
 @media screen and (max-width: 780px) {
-  .page__header {
-    flex-shrink: 0;
+  .page {
+    margin: 28px auto 36px;
+  }
+
+  .page__profile {
+    margin: 0 0 36px 0;
   }
 }
 
-@media screen and (max-width: 564px) {
+@media screen and (max-width: 580px) {
   .page__cards {
     display: flex;
     flex-flow: column nowrap;
@@ -51,7 +55,4 @@
 }
 
 @media screen and (max-width: 320px) {
-  .page {
-    margin: 28px auto 36px;
-  }
 }
