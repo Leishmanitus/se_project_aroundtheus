@@ -24,3 +24,7 @@ let initialCards = [
     link: "../images/canada-goose.jpg",
   },
 ];
+function returnError(name) {
+  console.log("My name is ${name}");
+}
+returnError();

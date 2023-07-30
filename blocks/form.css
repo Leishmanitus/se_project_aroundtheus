@@ -1,0 +1,41 @@
+.form {
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.form__text {
+  max-width: 358px;
+  font-family: Inter, Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  line-height: 2;
+  font-weight: 400;
+  color: #000;
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  padding: 0;
+  margin: 0 0 30px;
+}
+
+.form__text:last-of-type {
+  margin: 0 0 48px;
+}
+
+.form__save-button {
+  width: 358px;
+  height: 50px;
+  font-family: Inter;
+  font-size: 18px;
+  line-height: normal;
+  font-weight: 400;
+  text-align: center;
+  background: #000;
+  border: none;
+  border-radius: 2px;
+  color: #fff;
+  cursor: pointer;
+  margin: 0;
+}
+
+.form__save-button:hover {
+  opacity: 0.8;
+}
