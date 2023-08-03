@@ -1,3 +1,15 @@
+//constant variables
+const modal = document.querySelector(".modal");
+const profile = document.querySelector(".profile");
+const editButton = profile.querySelector(".profile .profile__button_type_edit");
+const closeModalButton = modal.querySelector(".modal .modal__close-button");
+const submitFormButton = modal.querySelector(".form__save-button");
+
+//let variables
+let modalName = modal.querySelector("#form-name");
+let modalDescription = modal.querySelector("#form-description");
+let profileName = profile.querySelector(".profile__name");
+let profileDescription = profile.querySelector(".profile__description");
 let initialCards = [
   {
     name: "Great Cormorant",
@@ -25,20 +37,26 @@ let initialCards = [
   },
 ];
 
+//functions
 function toggleModal() {
-  const modal = document.querySelector(".modal");
+  modal.classList.toggle("modal__opened");
   if (modal.classList.contains("modal__opened")) {
-    modal.setAttribute("style", "display: none");
-    modal.classList.toggle("modal__opened");
-  } else {
     modal.setAttribute("style", "display: flex");
-    modal.classList.toggle("modal__opened");
+    modalName.value = profileName.textContent;
+    modalDescription.value = profileDescription.textContent;
+  } else {
+    modal.setAttribute("style", "display: none");
   }
 }
-const editButton = document.querySelector(
-  ".profile .profile__button_type_edit"
-);
-editButton.addEventListener("click", toggleModal);
 
-const closeModalButton = document.querySelector(".modal .modal__close-button");
+function handleProfileEditSubmission(event) {
+  event.preventDefault();
+  profileName.textContent = modalName.value;
+  profileDescription.textContent = modalDescription.value;
+  toggleModal();
+}
+
+//button event listeners
+editButton.addEventListener("click", toggleModal);
 closeModalButton.addEventListener("click", toggleModal);
+submitFormButton.addEventListener("click", handleProfileEditSubmission);
