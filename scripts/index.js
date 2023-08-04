@@ -9,11 +9,12 @@ const cardTemplate = cardContainer.querySelector("#card-template").content;
 const cardBody = cardTemplate.querySelector(".card");
 
 const modal = document.querySelector(".modal");
+const closeModal = modal.querySelector(".modal__close-button");
+
 const form = document.forms["profile-edit-form"];
 const formName = form.querySelector("#form-name");
 const formDescription = form.querySelector("#form-description");
 const submitForm = form.querySelector(".form__save-button");
-const closeModal = modal.querySelector(".modal__close-button");
 
 const initialCards = [
   {
@@ -59,8 +60,8 @@ function toggleModal() {
 
 function handleProfileEditSubmission(event) {
   event.preventDefault();
-  profileName.textContent = modalName.value;
-  profileDescription.textContent = modalDescription.value;
+  profileName.textContent = formName.value;
+  profileDescription.textContent = formDescription.value;
   toggleModal();
 }
 
