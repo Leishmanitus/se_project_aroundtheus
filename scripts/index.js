@@ -66,22 +66,23 @@ function handleProfileEditSubmission(event) {
 }
 
 function makeCard(card) {
-  newCard = cardBody.cloneNode(true);
-  newCard.querySelector(".card__image").src = card.link;
-  newCard.querySelector(".card__image").alt = card.alt;
+  const newCard = cardBody.cloneNode(true);
+  const newImage = newCard.querySelector(".card__image");
+  newImage.src = card.link;
+  newImage.alt = card.alt;
   newCard.querySelector(".card__caption").textContent = card.name;
   return newCard;
 }
 
 function showCards(data) {
-  for (let card of data) {
+  for (const card of data) {
     cardContainer.append(makeCard(card));
   }
 }
 
 //button event listeners
 editButton.addEventListener("click", toggleModal);
-submitForm.addEventListener("submit", handleProfileEditSubmission);
+form.addEventListener("submit", handleProfileEditSubmission);
 closeModal.addEventListener("click", toggleModal);
 
 //initial calls
