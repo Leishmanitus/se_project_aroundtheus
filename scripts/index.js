@@ -9,6 +9,8 @@ const addImageButton = profile.querySelector(".profile__button_type_add");
 const cardContainer = document.querySelector(".page__cards");
 const cardTemplate = cardContainer.querySelector("#card-template").content;
 const cardBody = cardTemplate.querySelector(".card");
+const cardTrashButton = cardTemplate.querySelector(".card__trash-button");
+const cardHeartButton = cardTemplate.querySelector(".card__heart-button");
 
 //modal constants
 const modal = document.querySelector(".modal");
@@ -19,62 +21,58 @@ const closeModal = modal.querySelector(".modal__close-button");
 const form = document.forms["profile-edit-form"];
 const formName = form.querySelector("#form-name");
 const formDescription = form.querySelector("#form-description");
-const submitForm = form.querySelector(".form__save-button");
+const submitButton = form.querySelector(".form__save-button");
 
 const initialCards = [
   {
     name: "Great Cormorant",
     link: "./images/great-cormorant.jpg",
-    alt: "A blue eyed Cormorant drying its wings",
   },
   {
     name: "Kingfisher",
     link: "./images/kingfisher.jpg",
-    alt: "A Kingfisher lurking in the water",
   },
   {
     name: "Green Parakeet",
     link: "./images/green-parakeet.jpg",
-    alt: "A bright green parakeet in a tree knook",
   },
   {
-    name: "European Blue Jay",
-    link: "./images/eu-blue-jay.jpg",
-    alt: "A brilliantly blue bird rests on a tree limb",
+    name: "Pelican",
+    link: "./images/pelican.jpg",
   },
   {
     name: "Black Crow",
     link: "./images/crow.jpg",
-    alt: "A black crow cracking a nut open",
   },
   {
     name: "Canada Goose",
     link: "./images/canada-goose.jpg",
-    alt: "A Canada Goose with its duckling on its back",
   },
 ];
 
 //toggle functions
-function toggleClose() {
+function toggleCloseModal() {
   modal.classList.toggle("modal_opened");
 }
 
-function toggleEdit() {
-  toggleClose();
+function toggleEditModal() {
+  toggleCloseModal();
   modalTitle.textContent = "Edit Profile";
   formName.value = profileName.textContent;
   formDescription.value = profileDescription.textContent;
   formName.placeholder = "Name";
   formDescription.placeholder = "Description";
+  submitButton.textContent = "Save";
 }
 
-function toggleAdd() {
-  toggleClose();
+function toggleAddModal() {
+  toggleCloseModal();
   modalTitle.textContent = "New Image";
   formName.value = "";
   formDescription.value = "";
   formName.placeholder = "Title";
   formDescription.placeholder = "Image link";
+  submitButton.textContent = "Create";
 }
 
 //event handle functions
@@ -87,14 +85,17 @@ function handleProfileEditSubmission(event) {
 
 function handleNewImageSubmission(event) {
   event.preventDefault();
+  const cardInfo = {
+    name: formName.value,
+    link: formDescription.value,
+  };
+  cardContainer.prepend(makeCard(cardInfo));
 }
 
 //card functions
 function makeCard(card) {
   const newCard = cardBody.cloneNode(true);
-  const newImage = newCard.querySelector(".card__image");
-  newImage.src = card.link;
-  newImage.alt = card.alt;
+  newCard.querySelector(".card__image").src = card.link;
   newCard.querySelector(".card__caption").textContent = card.name;
   return newCard;
 }
@@ -105,11 +106,25 @@ function showCards(data) {
   });
 }
 
+function likeCard() {
+  cardHeartButton.classList.toggle("card__heart-button_active");
+}
+
+function removeCard(event) {
+  event.currentTarget.remove();
+}
+
 //button event listeners
-editButton.addEventListener("click", toggleEdit);
-addImageButton.addEventListener("click", toggleAdd);
-form.addEventListener("submit", handleProfileEditSubmission);
-closeModal.addEventListener("click", toggleClose);
+editButton.addEventListener("click", toggleEditModal);
+addImageButton.addEventListener("click", toggleAddModal);
+if (modalTitle.textContent === "Edit Profile") {
+  form.addEventListener("submit", handleProfileEditSubmission);
+} else if (modalTitle.textContent === "New Image") {
+  form.addEventListener("submit", handleNewImageSubmission);
+}
+closeModal.addEventListener("click", toggleCloseModal);
+cardTrashButton.addEventListener("click", removeCard);
+cardHeartButton.addEventListener("click", likeCard);
 
 //initial calls
 showCards(initialCards);
