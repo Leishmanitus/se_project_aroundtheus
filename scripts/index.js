@@ -3,7 +3,7 @@ const profile = document.querySelector(".profile");
 const profileName = profile.querySelector(".profile__name");
 const editButton = profile.querySelector(".profile__button_type_edit");
 const profileDescription = profile.querySelector(".profile__description");
-const addImageButton = profile.querySelector(".profile__button_type_add");
+const newImageButton = profile.querySelector(".profile__button_type_add");
 
 //card constants
 const cardContainer = document.querySelector(".page__cards");
@@ -18,10 +18,15 @@ const modalTitle = modal.querySelector(".modal__title");
 const closeModal = modal.querySelector(".modal__close-button");
 
 //form constants
-const form = document.forms["profile-edit-form"];
-const formName = form.querySelector("#form-name");
-const formDescription = form.querySelector("#form-description");
-const submitButton = form.querySelector(".form__save-button");
+const editForm = document.forms["profile-edit-form"];
+const formName = editForm.querySelector("#form-name");
+const formDescription = editForm.querySelector("#form-description");
+const submitEditButton = editForm.querySelector(".form__save-button");
+
+const addForm = document.forms["image-add-form"];
+const formTitle = addForm.querySelector("#form-title");
+const formLink = addForm.querySelector("#form-link");
+const addImageButton = addForm.querySelector(".form__save-button");
 
 const initialCards = [
   {
@@ -55,27 +60,19 @@ const toggleCloseModal = () => modal.classList.toggle("modal_opened");
 
 const toggleEditModal = () => {
   toggleCloseModal();
-  modalTitle.textContent = "Edit Profile";
   formName.value = profileName.textContent;
   formDescription.value = profileDescription.textContent;
-  formName.placeholder = "Name";
-  formDescription.placeholder = "Description";
-  submitButton.textContent = "Save";
 };
 
 const toggleAddModal = () => {
   toggleCloseModal();
-  modalTitle.textContent = "New Image";
-  formName.value = "";
-  formDescription.value = "";
-  formName.placeholder = "Title";
-  formDescription.placeholder = "Image link";
-  submitButton.textContent = "Create";
+  formTitle.value = "";
+  formLink.value = "";
 };
 
 //event handle functions
-const handleProfileEditSubmission = (event) => {
-  event.preventDefault();
+const handleProfileEditSubmission = () => {
+  this.preventDefault();
   profileName.textContent = formName.value;
   profileDescription.textContent = formDescription.value;
   toggleCloseModal();
@@ -84,8 +81,8 @@ const handleProfileEditSubmission = (event) => {
 const handleNewImageSubmission = (event) => {
   event.preventDefault();
   const cardInfo = {
-    name: formName.value,
-    link: formDescription.value,
+    name: formTitle.value,
+    link: formLink.value,
   };
   initialCards.prepend(cardInfo);
   cardContainer.prepend(makeCard(cardInfo));
@@ -103,18 +100,18 @@ const makeCard = (card) => {
 const showCards = (data) =>
   data.forEach((card) => cardContainer.append(makeCard(card)));
 
-const likeCard = () => this.classList.toggle("card__heart-button_liked");
+const likeCard = (event) =>
+  event.target
+    .querySelector(".card__heart-button")
+    .classList.toggle("card__heart-button_liked");
 
 const removeCard = () => this.remove();
 
 //button event listeners
 editButton.addEventListener("click", () => toggleEditModal());
-addImageButton.addEventListener("click", () => toggleAddModal());
-if (modalTitle.textContent === "Edit Profile") {
-  form.addEventListener("submit", () => handleProfileEditSubmission());
-} else if (modalTitle.textContent === "New Image") {
-  form.addEventListener("submit", () => handleNewImageSubmission());
-}
+editForm.addEventListener("submit", () => handleProfileEditSubmission());
+newImageButton.addEventListener("click", () => toggleAddModal());
+addForm.addEventListener("submit", () => handleNewImageSubmission());
 closeModal.addEventListener("click", () => toggleCloseModal());
 cardTrashButton.addEventListener("click", () => removeCard());
 cardHeartButton.addEventListener("click", () => likeCard());
