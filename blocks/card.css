@@ -28,6 +28,10 @@
   right: 15px;
 }
 
+.card__trash-button:hover {
+  opacity: 0.6;
+}
+
 .card__info {
   display: flex;
   flex-flow: row wrap;
@@ -52,8 +56,9 @@
 .card__heart-button {
   background: url(../images/heart.svg) no-repeat center;
   background-size: cover;
+  overflow: hidden;
   border: none;
-  padding: 9px 10.5px;
+  padding: 10px 11px;
   cursor: pointer;
 }
 
@@ -61,6 +66,7 @@
   opacity: 0.5;
 }
 
-.card__heart-button_active {
-  background-color: #000;
+.card__heart-button_liked {
+  background: url(../images/liked.svg) no-repeat center;
+  background-size: cover;
 }
