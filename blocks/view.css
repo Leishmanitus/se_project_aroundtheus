@@ -46,27 +46,17 @@
 }
 
 .view__caption {
+  font-family: Inter, Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  line-height: 1.2;
+  color: #fff;
 }
 
 @media screen and (max-width: 580px) {
-  .view__container {
-    width: 282px;
-    height: 322px;
-  }
-
-  .view__title {
-    width: 238px;
-    font-size: 18px;
-    margin: 25px 22px 0;
-  }
-
-  .view__form {
-    margin: 75px 22px 25px;
-  }
-
   .view__close-button {
-    width: 26px;
-    height: 26px;
-    right: 0;
+    width: 30px;
+    height: 30px;
+    top: -36px;
+    right: -36px;
   }
 }

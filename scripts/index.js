@@ -13,17 +13,21 @@ const cardTrashButton = cardTemplate.querySelector(".card__trash-button");
 const cardHeartButton = cardTemplate.querySelector(".card__heart-button");
 
 //modal constants
-const modal = document.querySelector(".modal");
-const modalTitle = modal.querySelector(".modal__title");
-const closeModal = modal.querySelector(".modal__close-button");
+// const modal = document.querySelector(".modal");
+// const modalTitle = modal.querySelector(".modal__title");
+// const closeModal = modal.querySelector(".modal__close-button");
 
 //form constants
 const editForm = document.forms["profile-edit-form"];
+const editModal = editForm.closest(".modal");
+const editCloseButton = editModal.querySelector(".modal__close-button");
 const formName = editForm.querySelector("#form-name");
 const formDescription = editForm.querySelector("#form-description");
 const submitEditButton = editForm.querySelector(".form__save-button");
 
 const addForm = document.forms["image-add-form"];
+const addModal = addForm.closest(".modal");
+const addCloseButton = addModal.querySelector(".modal__close-button");
 const formTitle = addForm.querySelector("#form-title");
 const formLink = addForm.querySelector("#form-link");
 const addImageButton = addForm.querySelector(".form__save-button");
@@ -56,26 +60,32 @@ const initialCards = [
 ];
 
 //toggle functions
-const toggleCloseModal = () => modal.classList.toggle("modal_opened");
+// const toggleCloseModal = function () {
+//   modal.classList.toggle("modal_opened");
+// };
 
-const toggleEditModal = () => {
-  toggleCloseModal();
+// const toggleEventModal = function (event) {
+//   event.target.closest(".modal").classList.toggle("modal__opened");
+// };
+
+const toggleEditModal = function () {
+  editModal.classList.toggle("modal__opened");
   formName.value = profileName.textContent;
   formDescription.value = profileDescription.textContent;
 };
 
-const toggleAddModal = () => {
-  toggleCloseModal();
+const toggleAddModal = function () {
+  addModal.classList.toggle("modal__opened");
   formTitle.value = "";
   formLink.value = "";
 };
 
 //event handle functions
-const handleProfileEditSubmission = () => {
-  this.preventDefault();
+const handleProfileEditSubmission = (event) => {
+  event.preventDefault();
   profileName.textContent = formName.value;
   profileDescription.textContent = formDescription.value;
-  toggleCloseModal();
+  toggleEditModal();
 };
 
 const handleNewImageSubmission = (event) => {
@@ -86,7 +96,7 @@ const handleNewImageSubmission = (event) => {
   };
   initialCards.prepend(cardInfo);
   cardContainer.prepend(makeCard(cardInfo));
-  toggleCloseModal();
+  toggleAddModal();
 };
 
 //card functions
@@ -101,20 +111,23 @@ const showCards = (data) =>
   data.forEach((card) => cardContainer.append(makeCard(card)));
 
 const likeCard = (event) =>
-  event.target
-    .querySelector(".card__heart-button")
-    .classList.toggle("card__heart-button_liked");
+  event.target.classList.toggle("card__heart-button_liked");
 
-const removeCard = () => this.remove();
+const removeCard = (event) => event.target.closest(".card").remove();
 
 //button event listeners
-editButton.addEventListener("click", () => toggleEditModal());
-editForm.addEventListener("submit", () => handleProfileEditSubmission());
-newImageButton.addEventListener("click", () => toggleAddModal());
-addForm.addEventListener("submit", () => handleNewImageSubmission());
-closeModal.addEventListener("click", () => toggleCloseModal());
-cardTrashButton.addEventListener("click", () => removeCard());
-cardHeartButton.addEventListener("click", () => likeCard());
+editButton.addEventListener("click", toggleEditModal);
+newImageButton.addEventListener("click", toggleAddModal);
+
+editForm.addEventListener("submit", handleProfileEditSubmission);
+addForm.addEventListener("submit", handleNewImageSubmission);
+
+editCloseButton.addEventListener("click", toggleEditModal);
+addCloseButton.addEventListener("click", toggleAddModal);
+
+cardTrashButton.addEventListener("click", removeCard);
+
+cardHeartButton.addEventListener("click", likeCard);
 
 //initial calls
 showCards(initialCards);
