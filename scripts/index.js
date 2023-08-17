@@ -7,10 +7,9 @@ const newImageButton = profile.querySelector(".profile__button_type_add");
 
 //card constants
 const cardContainer = document.querySelector(".page__cards");
-const cardTemplate = cardContainer.querySelector("#card-template").content;
-const cardBody = cardTemplate.querySelector(".card");
-const cardTrashButton = cardTemplate.querySelector(".card__trash-button");
-const cardHeartButton = cardTemplate.querySelector(".card__heart-button");
+const cardTemplate = cardContainer
+  .querySelector("#card-template")
+  .content.querySelector(".card");
 
 //modal constants
 // const modal = document.querySelector(".modal");
@@ -93,17 +92,24 @@ const handleNewImageSubmission = (event) => {
 
 //card functions
 const makeCard = (card) => {
-  const newCard = cardBody.cloneNode(true);
-  newCard.querySelector(".card__image").src = card.link;
-  newCard.querySelector(".card__caption").textContent = card.name;
+  const newCard = cardTemplate.cloneNode(true);
+  const newImage = newCard.querySelector(".card__image");
+  const newCaption = newCard.querySelector(".card__caption");
+  const heartButton = newCard.querySelector(".card__heart-button");
+
+  heartButton.addEventListener("click", () =>
+    heartButton.classList.toggle("card__heart-button_liked")
+  );
+
+  newImage.src = card.link;
+  newCaption.textContent = card.name;
+
   return newCard;
 };
 
-const showCards = (data) =>
-  data.forEach((card) => cardContainer.append(makeCard(card)));
-
-const likeCard = (event) =>
-  event.target.classList.toggle("card__heart-button_liked");
+const showCard = (card, wrapper) => {
+  wrapper.prepend(makeCard(card));
+};
 
 const removeCard = (event) => event.target.closest(".card").remove();
 
@@ -117,10 +123,8 @@ addForm.addEventListener("submit", handleNewImageSubmission);
 editCloseButton.addEventListener("click", toggleEditModal);
 addCloseButton.addEventListener("click", toggleAddModal);
 
-cardTrashButton.addEventListener("click", removeCard);
-
-cardHeartButton.addEventListener("click", likeCard);
+//cardTrashButton.addEventListener("click", removeCard);
 
 //initial calls
-showCards(initialCards);
+initialCards.forEach((card) => showCard(card, cardContainer));
 //dog call for testing https://practicum-content.s3.us-west-1.amazonaws.com/frontend-developer/functions/moved_dog-6.jpg
