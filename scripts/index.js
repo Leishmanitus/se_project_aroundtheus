@@ -60,27 +60,19 @@ const initialCards = [
 ];
 
 //toggle functions
-// const toggleCloseModal = function () {
-//   modal.classList.toggle("modal_opened");
-// };
-
-// const toggleEventModal = function (event) {
-//   event.target.closest(".modal").classList.toggle("modal__opened");
-// };
-
 const toggleEditModal = function () {
-  editModal.classList.toggle("modal__opened");
+  editModal.classList.toggle("modal_opened");
   formName.value = profileName.textContent;
   formDescription.value = profileDescription.textContent;
 };
 
 const toggleAddModal = function () {
-  addModal.classList.toggle("modal__opened");
+  addModal.classList.toggle("modal_opened");
   formTitle.value = "";
   formLink.value = "";
 };
 
-//event handle functions
+//event handlers
 const handleProfileEditSubmission = (event) => {
   event.preventDefault();
   profileName.textContent = formName.value;
