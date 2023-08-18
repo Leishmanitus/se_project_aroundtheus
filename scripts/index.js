@@ -11,11 +11,6 @@ const cardTemplate = cardContainer
   .querySelector("#card-template")
   .content.querySelector(".card");
 
-//modal constants
-// const modal = document.querySelector(".modal");
-// const modalTitle = modal.querySelector(".modal__title");
-// const closeModal = modal.querySelector(".modal__close-button");
-
 //form constants
 const editForm = document.forms["profile-edit-form"];
 const editModal = editForm.closest(".modal");
@@ -30,6 +25,12 @@ const addCloseButton = addModal.querySelector(".modal__close-button");
 const formTitle = addForm.querySelector("#form-title");
 const formLink = addForm.querySelector("#form-link");
 const addImageButton = addForm.querySelector(".form__save-button");
+
+//view constants
+const view = document.querySelector(".view");
+const viewImage = view.querySelector(".view__image");
+const viewCloseButton = view.querySelector(".view__close-button");
+const viewCaption = view.querySelector(".view__caption");
 
 const initialCards = [
   {
@@ -58,47 +59,40 @@ const initialCards = [
   },
 ];
 
-//toggle functions
-const toggleEditModal = function () {
-  editModal.classList.toggle("modal_opened");
-  formName.value = profileName.textContent;
-  formDescription.value = profileDescription.textContent;
+const makeImage = (link, title) => {
+  viewImage.src = link;
+  viewCaption.textContent = title;
+
+  viewCloseButton.addEventListener(
+    "click",
+    (event) => {
+      const thisView = event.target.closest(".view");
+      thisView.classList.toggle("view_opened");
+    },
+    { once: true }
+  );
 };
 
-const toggleAddModal = function () {
-  addModal.classList.toggle("modal_opened");
-  formTitle.value = "";
-  formLink.value = "";
-};
-
-//event handlers
-const handleProfileEditSubmission = (event) => {
-  event.preventDefault();
-  profileName.textContent = formName.value;
-  profileDescription.textContent = formDescription.value;
-  toggleEditModal();
-};
-
-const handleNewImageSubmission = (event) => {
-  event.preventDefault();
-  const cardInfo = {
-    name: formTitle.value,
-    link: formLink.value,
-  };
-  initialCards.prepend(cardInfo);
-  cardContainer.prepend(makeCard(cardInfo));
-  toggleAddModal();
-};
-
-//card functions
 const makeCard = (card) => {
   const newCard = cardTemplate.cloneNode(true);
   const newImage = newCard.querySelector(".card__image");
   const newCaption = newCard.querySelector(".card__caption");
-  const heartButton = newCard.querySelector(".card__heart-button");
+  const newTrashButton = newCard.querySelector(".card__trash-button");
+  const newHeartButton = newCard.querySelector(".card__heart-button");
 
-  heartButton.addEventListener("click", () =>
-    heartButton.classList.toggle("card__heart-button_liked")
+  newImage.addEventListener("click", (event) => {
+    const imageLink = newImage.src;
+    const imageTitle = newCaption.textContent;
+    makeImage(imageLink, imageTitle);
+    view.classList.toggle("view_opened");
+  });
+
+  newTrashButton.addEventListener("click", (event) => {
+    event.target.closest(".card").remove();
+  });
+
+  newHeartButton.addEventListener("click", () =>
+    newHeartButton.classList.toggle("card__heart-button_liked")
   );
 
   newImage.src = card.link;
@@ -107,24 +101,44 @@ const makeCard = (card) => {
   return newCard;
 };
 
-const showCard = (card, wrapper) => {
-  wrapper.prepend(makeCard(card));
-};
+//toggle functions
+editButton.addEventListener("click", () => {
+  editModal.classList.toggle("modal_opened");
+  formName.value = profileName.textContent;
+  formDescription.value = profileDescription.textContent;
+});
 
-const removeCard = (event) => event.target.closest(".card").remove();
+editCloseButton.addEventListener("click", () => {
+  editModal.classList.toggle("modal_opened");
+});
 
-//button event listeners
-editButton.addEventListener("click", toggleEditModal);
-newImageButton.addEventListener("click", toggleAddModal);
+newImageButton.addEventListener("click", () => {
+  addModal.classList.toggle("modal_opened");
+  formTitle.value = "";
+  formLink.value = "";
+});
 
-editForm.addEventListener("submit", handleProfileEditSubmission);
-addForm.addEventListener("submit", handleNewImageSubmission);
+addCloseButton.addEventListener("click", () => {
+  addModal.classList.toggle("modal_opened");
+});
 
-editCloseButton.addEventListener("click", toggleEditModal);
-addCloseButton.addEventListener("click", toggleAddModal);
+//event handlers
+editForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  profileName.textContent = formName.value;
+  profileDescription.textContent = formDescription.value;
+  editModal.classList.toggle("modal_opened");
+});
 
-//cardTrashButton.addEventListener("click", removeCard);
+addForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const cardInfo = {
+    name: formTitle.value,
+    link: formLink.value,
+  };
+  cardContainer.prepend(makeCard(cardInfo));
+  addModal.classList.toggle("modal_opened");
+});
 
 //initial calls
-initialCards.forEach((card) => showCard(card, cardContainer));
-//dog call for testing https://practicum-content.s3.us-west-1.amazonaws.com/frontend-developer/functions/moved_dog-6.jpg
+initialCards.forEach((card) => cardContainer.prepend(makeCard(card)));

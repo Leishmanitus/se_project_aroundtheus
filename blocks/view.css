@@ -8,25 +8,32 @@
   justify-content: center;
   align-items: center;
   background: rgba(0, 0, 0, 0.5);
+  animation: ease-open 0.3s ease-in 0s alternate;
 }
 
-.view__opened {
+.view_opened {
   display: flex;
 }
 
+/* .view_closed {
+  display: none;
+  animation: ease-open 0.3s ease-in 0s reverse;
+} */
+
 .view__container {
+  max-width: 75vw;
+  max-height: 75vh;
   position: relative;
   display: flex;
   flex-flow: column nowrap;
-  background: #fff;
   border-radius: 10px;
   box-shadow: 0px 0px 25px 0px rgba(0, 0, 0, 0.15);
   margin: auto;
 }
 
 .view__image {
-  max-width: 75vw;
-  max-height: 75vh;
+  max-width: 816px;
+  max-height: 540px;
 }
 
 .view__close-button {
@@ -53,6 +60,10 @@
 }
 
 @media screen and (max-width: 580px) {
+  .view__image {
+    max-width: 240px;
+    max-height: 299px;
+  }
   .view__close-button {
     width: 30px;
     height: 30px;
