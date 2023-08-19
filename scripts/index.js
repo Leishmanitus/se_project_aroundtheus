@@ -14,23 +14,23 @@ const cardTemplate = cardContainer
 //form constants
 const editForm = document.forms["profile-edit-form"];
 const editModal = editForm.closest(".modal");
-const editCloseButton = editModal.querySelector(".modal__close-button");
 const formName = editForm.querySelector("#form-name");
 const formDescription = editForm.querySelector("#form-description");
 const submitEditButton = editForm.querySelector(".form__save-button");
 
 const addForm = document.forms["image-add-form"];
 const addModal = addForm.closest(".modal");
-const addCloseButton = addModal.querySelector(".modal__close-button");
 const formTitle = addForm.querySelector("#form-title");
 const formLink = addForm.querySelector("#form-link");
 const addImageButton = addForm.querySelector(".form__save-button");
 
-//view constants
-const view = document.querySelector(".view");
-const viewImage = view.querySelector(".view__image");
-const viewCloseButton = view.querySelector(".view__close-button");
-const viewCaption = view.querySelector(".view__caption");
+//image view constants
+const modalView = document.querySelector(".modal_view");
+const modalViewImage = modalView.querySelector(".modal_view__image");
+const modalViewCaption = modalView.querySelector(".modal_view__caption");
+
+//close buttons
+const closeButtons = document.querySelectorAll(".modal__close-button");
 
 const initialCards = [
   {
@@ -60,17 +60,8 @@ const initialCards = [
 ];
 
 const makeImage = (link, title) => {
-  viewImage.src = link;
-  viewCaption.textContent = title;
-
-  viewCloseButton.addEventListener(
-    "click",
-    (event) => {
-      const thisView = event.target.closest(".view");
-      thisView.classList.toggle("view_opened");
-    },
-    { once: true }
-  );
+  modalViewImage.src = link;
+  modalViewImage.alt, (modalViewCaption.textContent = title);
 };
 
 const makeCard = (card) => {
@@ -80,11 +71,11 @@ const makeCard = (card) => {
   const newTrashButton = newCard.querySelector(".card__trash-button");
   const newHeartButton = newCard.querySelector(".card__heart-button");
 
-  newImage.addEventListener("click", (event) => {
+  newImage.addEventListener("click", () => {
     const imageLink = newImage.src;
     const imageTitle = newCaption.textContent;
     makeImage(imageLink, imageTitle);
-    view.classList.toggle("view_opened");
+    openPopup(modalView);
   });
 
   newTrashButton.addEventListener("click", (event) => {
@@ -96,38 +87,34 @@ const makeCard = (card) => {
   );
 
   newImage.src = card.link;
-  newCaption.textContent = card.name;
+  newImage.alt, (newCaption.textContent = card.name);
 
   return newCard;
 };
 
-//toggle functions
+function openPopup(popup) {
+  popup.classList.add("modal_opened");
+}
+function closePopup(popup) {
+  popup.classList.remove("modal_opened");
+}
+
 editButton.addEventListener("click", () => {
-  editModal.classList.toggle("modal_opened");
   formName.value = profileName.textContent;
   formDescription.value = profileDescription.textContent;
-});
-
-editCloseButton.addEventListener("click", () => {
-  editModal.classList.toggle("modal_opened");
+  openPopup(editForm.closest(".modal"));
 });
 
 newImageButton.addEventListener("click", () => {
-  addModal.classList.toggle("modal_opened");
-  formTitle.value = "";
-  formLink.value = "";
+  openPopup(addForm.closest(".modal"));
 });
 
-addCloseButton.addEventListener("click", () => {
-  addModal.classList.toggle("modal_opened");
-});
-
-//event handlers
 editForm.addEventListener("submit", (event) => {
   event.preventDefault();
   profileName.textContent = formName.value;
   profileDescription.textContent = formDescription.value;
-  editModal.classList.toggle("modal_opened");
+  closePopup(editForm.closest(".modal"));
+  event.target.reset();
 });
 
 addForm.addEventListener("submit", (event) => {
@@ -137,8 +124,13 @@ addForm.addEventListener("submit", (event) => {
     link: formLink.value,
   };
   cardContainer.prepend(makeCard(cardInfo));
-  addModal.classList.toggle("modal_opened");
+  closePopup(addForm.closest(".modal"));
+  event.target.reset();
 });
 
-//initial calls
 initialCards.forEach((card) => cardContainer.prepend(makeCard(card)));
+closeButtons.forEach((button) => {
+  const popup = button.closest(".modal");
+
+  button.addEventListener("click", () => closePopup(popup));
+});
