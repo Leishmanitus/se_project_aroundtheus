@@ -25,9 +25,9 @@ const formLink = addForm.querySelector("#form-link");
 const addImageButton = addForm.querySelector(".form__save-button");
 
 //image view constants
-const modalView = document.querySelector(".modal_view");
-const modalViewImage = modalView.querySelector(".modal_view__image");
-const modalViewCaption = modalView.querySelector(".modal_view__caption");
+const modalView = document.querySelector(".view");
+const modalViewImage = modalView.querySelector(".view__image");
+const modalViewCaption = modalView.querySelector(".view__caption");
 
 //close buttons
 const closeButtons = document.querySelectorAll(".modal__close-button");
@@ -93,9 +93,11 @@ const makeCard = (card) => {
 };
 
 function openPopup(popup) {
+  popup.style.animation = "ease-open 0.3s ease-in-out 0s";
   popup.classList.add("modal_opened");
 }
 function closePopup(popup) {
+  popup.style.animation = "ease-open 0.3s ease-in-out 0s reverse running";
   popup.classList.remove("modal_opened");
 }
 
