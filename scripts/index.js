@@ -61,7 +61,8 @@ const initialCards = [
 
 const makeImage = (link, title) => {
   modalViewImage.src = link;
-  modalViewImage.alt, (modalViewCaption.textContent = title);
+  modalViewImage.alt = title;
+  modalViewCaption.textContent = title;
 };
 
 const makeCard = (card) => {
@@ -87,35 +88,34 @@ const makeCard = (card) => {
   );
 
   newImage.src = card.link;
-  newImage.alt, (newCaption.textContent = card.name);
+  newImage.alt = card.name;
+  newCaption.textContent = card.name;
 
   return newCard;
 };
 
 function openPopup(popup) {
-  popup.style.animation = "ease-open 0.3s ease-in-out 0s";
   popup.classList.add("modal_opened");
 }
 function closePopup(popup) {
-  popup.style.animation = "ease-open 0.3s ease-in-out 0s reverse running";
   popup.classList.remove("modal_opened");
 }
 
 editButton.addEventListener("click", () => {
   formName.value = profileName.textContent;
   formDescription.value = profileDescription.textContent;
-  openPopup(editForm.closest(".modal"));
+  openPopup(editModal);
 });
 
 newImageButton.addEventListener("click", () => {
-  openPopup(addForm.closest(".modal"));
+  openPopup(addModal);
 });
 
 editForm.addEventListener("submit", (event) => {
   event.preventDefault();
   profileName.textContent = formName.value;
   profileDescription.textContent = formDescription.value;
-  closePopup(editForm.closest(".modal"));
+  closePopup(editModal);
   event.target.reset();
 });
 
@@ -126,7 +126,7 @@ addForm.addEventListener("submit", (event) => {
     link: formLink.value,
   };
   cardContainer.prepend(makeCard(cardInfo));
-  closePopup(addForm.closest(".modal"));
+  closePopup(addModal);
   event.target.reset();
 });
 
