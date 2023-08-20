@@ -4,16 +4,18 @@
   position: fixed;
   top: 0;
   left: 0;
-  display: none;
+  display: flex;
   justify-content: center;
   align-items: center;
   background: rgba(0, 0, 0, 0.5);
-  animation: ease-open 0.3s ease-in-out 0s;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s, visibility 0.5s;
 }
 
 .modal_opened {
-  display: flex;
-  animation: ease-open 0.3s ease-in-out 0s;
+  opacity: 1;
+  visibility: visible;
 }
 
 .modal__container {
