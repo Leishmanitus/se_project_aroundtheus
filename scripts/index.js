@@ -18,11 +18,11 @@ const formName = editForm.querySelector("#form-name");
 const formDescription = editForm.querySelector("#form-description");
 const submitEditButton = editForm.querySelector(".form__save-button");
 
-const addForm = document.forms["image-add-form"];
-const addModal = addForm.closest(".modal");
-const formTitle = addForm.querySelector("#form-title");
-const formLink = addForm.querySelector("#form-link");
-const addImageButton = addForm.querySelector(".form__save-button");
+const imageForm = document.forms["image-add-form"];
+const imageModal = imageForm.closest(".modal");
+const formTitle = imageForm.querySelector("#form-title");
+const formLink = imageForm.querySelector("#form-link");
+const addImageButton = imageForm.querySelector(".form__save-button");
 
 //image view constants
 const modalView = document.querySelector(".view");
@@ -59,6 +59,13 @@ const initialCards = [
   },
 ];
 
+const openPopup = (popup) => {
+  popup.classList.add("modal_opened");
+};
+const closePopup = (popup) => {
+  popup.classList.remove("modal_opened");
+};
+
 const makeImage = (link, title) => {
   modalViewImage.src = link;
   modalViewImage.alt = title;
@@ -94,21 +101,18 @@ const makeCard = (card) => {
   return newCard;
 };
 
-function openPopup(popup) {
-  popup.classList.add("modal_opened");
-}
-function closePopup(popup) {
-  popup.classList.remove("modal_opened");
-}
-
 editButton.addEventListener("click", () => {
   formName.value = profileName.textContent;
   formDescription.value = profileDescription.textContent;
   openPopup(editModal);
+  editModal.addEventListener("click", (event) => {
+    closePopup(event.target);
+    editModal.removeEventListener("click", closePopup);
+  });
 });
 
 newImageButton.addEventListener("click", () => {
-  openPopup(addModal);
+  openPopup(imageModal);
 });
 
 editForm.addEventListener("submit", (event) => {
@@ -119,20 +123,27 @@ editForm.addEventListener("submit", (event) => {
   event.target.reset();
 });
 
-addForm.addEventListener("submit", (event) => {
+imageForm.addEventListener("submit", (event) => {
   event.preventDefault();
   const cardInfo = {
     name: formTitle.value,
     link: formLink.value,
   };
   cardContainer.prepend(makeCard(cardInfo));
-  closePopup(addModal);
+  closePopup(imageModal);
   event.target.reset();
+});
+
+imageModal.addEventListener("click", (event) => {
+  closePopup(event.target);
+});
+
+modalView.addEventListener("click", (event) => {
+  closePopup(event.target);
 });
 
 initialCards.forEach((card) => cardContainer.prepend(makeCard(card)));
 closeButtons.forEach((button) => {
   const popup = button.closest(".modal");
-
   button.addEventListener("click", () => closePopup(popup));
 });
