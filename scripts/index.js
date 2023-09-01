@@ -32,6 +32,9 @@ const modalViewCaption = modalView.querySelector(".view__caption");
 //close buttons
 const closeButtons = document.querySelectorAll(".modal__close-button");
 
+//abort controller
+const controller = new AbortController();
+
 const initialCards = [
   {
     name: "Great Cormorant",
@@ -59,17 +62,63 @@ const initialCards = [
   },
 ];
 
+const setEditListeners = () => {
+  editForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    profileName.textContent = formName.value;
+    profileDescription.textContent = formDescription.value;
+    closePopup(editModal);
+    event.target.reset();
+  });
+  editModal.addEventListener("click", function close() {
+    closePopup(editModal);
+  });
+};
+
+const setImageListeners = () => {
+  imageForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const cardInfo = {
+      name: formTitle.value,
+      link: formLink.value,
+    };
+    cardContainer.prepend(makeCard(cardInfo));
+    closePopup(imageModal);
+    event.target.reset();
+  });
+  imageModal.addEventListener("click", function close() {
+    closePopup(imageModal);
+  });
+};
+
+const setViewListeners = () => {
+  modalView.addEventListener("click", function close() {
+    closePopup(modalView);
+  });
+};
+
 const openPopup = (popup) => {
   popup.classList.add("modal_opened");
+  document.addEventListener("keydown", function close(event) {
+    if (event.key === "Escape") {
+      closePopup(popup.closest(".modal"));
+    }
+  });
 };
+
 const closePopup = (popup) => {
   popup.classList.remove("modal_opened");
+  popup
+    .querySelector(".modal__close-button")
+    .removeEventListener("click", close);
+  document.removeEventListener("keydown", close);
 };
 
 const makeImage = (link, title) => {
   modalViewImage.src = link;
   modalViewImage.alt = title;
   modalViewCaption.textContent = title;
+  setViewListeners();
 };
 
 const makeCard = (card) => {
@@ -78,26 +127,21 @@ const makeCard = (card) => {
   const newCaption = newCard.querySelector(".card__caption");
   const newTrashButton = newCard.querySelector(".card__trash-button");
   const newHeartButton = newCard.querySelector(".card__heart-button");
-
   newImage.addEventListener("click", () => {
     const imageLink = newImage.src;
     const imageTitle = newCaption.textContent;
     makeImage(imageLink, imageTitle);
     openPopup(modalView);
   });
-
   newTrashButton.addEventListener("click", (event) => {
     event.target.closest(".card").remove();
   });
-
   newHeartButton.addEventListener("click", () =>
     newHeartButton.classList.toggle("card__heart-button_liked")
   );
-
   newImage.src = card.link;
   newImage.alt = card.name;
   newCaption.textContent = card.name;
-
   return newCard;
 };
 
@@ -105,45 +149,15 @@ editButton.addEventListener("click", () => {
   formName.value = profileName.textContent;
   formDescription.value = profileDescription.textContent;
   openPopup(editModal);
-  editModal.addEventListener("click", (event) => {
-    closePopup(event.target);
-    editModal.removeEventListener("click", closePopup);
-  });
+  setEditListeners();
 });
 
 newImageButton.addEventListener("click", () => {
   openPopup(imageModal);
-});
-
-editForm.addEventListener("submit", (event) => {
-  event.preventDefault();
-  profileName.textContent = formName.value;
-  profileDescription.textContent = formDescription.value;
-  closePopup(editModal);
-  event.target.reset();
-});
-
-imageForm.addEventListener("submit", (event) => {
-  event.preventDefault();
-  const cardInfo = {
-    name: formTitle.value,
-    link: formLink.value,
-  };
-  cardContainer.prepend(makeCard(cardInfo));
-  closePopup(imageModal);
-  event.target.reset();
-});
-
-imageModal.addEventListener("click", (event) => {
-  closePopup(event.target);
-});
-
-modalView.addEventListener("click", (event) => {
-  closePopup(event.target);
+  setImageListeners();
 });
 
 initialCards.forEach((card) => cardContainer.prepend(makeCard(card)));
 closeButtons.forEach((button) => {
-  const popup = button.closest(".modal");
-  button.addEventListener("click", () => closePopup(popup));
+  button.addEventListener("click", () => closePopup(button.closest(".modal")));
 });

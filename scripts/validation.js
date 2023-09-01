@@ -1,32 +1,23 @@
-const config = {
-  formSelector: ".form",
-  inputSelector: ".form__input",
-  submitButtonSelector: ".form__submit",
-  inactiveButtonClass: "form__submit_inactive",
-  inputErrorClass: "form__input_type_error",
-  errorClassVisible: "form__error_visible",
-};
-
 const showError = (
   formElement,
   inputElement,
-  { inputErrorClass, errorClassVisible }
+  { inputErrorClass, errorVisibleClass }
 ) => {
   const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
   inputElement.classList.add(inputErrorClass);
   errorElement.textContent = inputElement.validationMessage;
-  errorElement.classList.add(errorClassVisible);
+  errorElement.classList.add(errorVisibleClass);
 };
 
 const hideError = (
   formElement,
   inputElement,
-  { inputErrorClass, errorClassVisible }
+  { inputErrorClass, errorVisibleClass }
 ) => {
   const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
   inputElement.classList.remove(inputErrorClass);
   errorElement.textContent = "";
-  errorElement.classList.remove(errorClassVisible);
+  errorElement.classList.remove(errorVisibleClass);
 };
 
 const hasInvalidInput = (inputElements) => {
@@ -83,4 +74,11 @@ const enableValidation = (options) => {
   });
 };
 
-enableValidation(config);
+enableValidation({
+  formSelector: ".form",
+  inputSelector: ".form__input",
+  submitButtonSelector: ".form__submit",
+  inactiveButtonClass: "form__submit_inactive",
+  inputErrorClass: "form__input_type_error",
+  errorVisibleClass: "form__error_visible",
+});
