@@ -69,9 +69,11 @@ const setEditListeners = () => {
     profileDescription.textContent = formDescription.value;
     closePopup(editModal);
     event.target.reset();
+    event.stopPropagation();
   });
-  editModal.addEventListener("click", function close() {
-    closePopup(editModal);
+  editModal.addEventListener("click", function close(event) {
+    event.stopImmediatePropagation();
+    closePopup(event.target);
   });
 };
 
@@ -85,40 +87,44 @@ const setImageListeners = () => {
     cardContainer.prepend(makeCard(cardInfo));
     closePopup(imageModal);
     event.target.reset();
+    event.stopPropagation();
   });
-  imageModal.addEventListener("click", function close() {
-    closePopup(imageModal);
+  imageModal.addEventListener("click", function close(event) {
+    event.stopImmediatePropagation();
+    closePopup(event.target);
   });
 };
 
 const setViewListeners = () => {
-  modalView.addEventListener("click", function close() {
+  modalView.addEventListener("click", function close(event) {
+    event.stopImmediatePropagation();
     closePopup(modalView);
   });
 };
 
+const handleEscapeKey = (event) => {
+  if (event.key === "Escape") {
+    const openedModal = document.querySelector(".modal_opened");
+    if (openedModal) {
+      closePopup(openedModal);
+    }
+  }
+};
+
 const openPopup = (popup) => {
   popup.classList.add("modal_opened");
-  document.addEventListener("keydown", function close(event) {
-    if (event.key === "Escape") {
-      closePopup(popup.closest(".modal"));
-    }
-  });
+  document.addEventListener("keydown", handleEscapeKey);
 };
 
 const closePopup = (popup) => {
   popup.classList.remove("modal_opened");
-  popup
-    .querySelector(".modal__close-button")
-    .removeEventListener("click", close);
-  document.removeEventListener("keydown", close);
+  document.removeEventListener("keydown", handleEscapeKey);
 };
 
 const makeImage = (link, title) => {
   modalViewImage.src = link;
   modalViewImage.alt = title;
   modalViewCaption.textContent = title;
-  setViewListeners();
 };
 
 const makeCard = (card) => {
@@ -134,30 +140,40 @@ const makeCard = (card) => {
     openPopup(modalView);
   });
   newTrashButton.addEventListener("click", (event) => {
+    event.stopImmediatePropagation();
     event.target.closest(".card").remove();
   });
-  newHeartButton.addEventListener("click", () =>
-    newHeartButton.classList.toggle("card__heart-button_liked")
-  );
+  newHeartButton.addEventListener("click", (event) => {
+    event.stopImmediatePropagation();
+    newHeartButton.classList.toggle("card__heart-button_liked");
+  });
   newImage.src = card.link;
   newImage.alt = card.name;
   newCaption.textContent = card.name;
   return newCard;
 };
 
-editButton.addEventListener("click", () => {
+editButton.addEventListener("click", (event) => {
+  event.stopImmediatePropagation();
   formName.value = profileName.textContent;
   formDescription.value = profileDescription.textContent;
   openPopup(editModal);
-  setEditListeners();
 });
 
-newImageButton.addEventListener("click", () => {
+newImageButton.addEventListener("click", (event) => {
+  event.stopImmediatePropagation();
   openPopup(imageModal);
-  setImageListeners();
 });
 
 initialCards.forEach((card) => cardContainer.prepend(makeCard(card)));
 closeButtons.forEach((button) => {
-  button.addEventListener("click", () => closePopup(button.closest(".modal")));
+  const popup = button.closest(".modal");
+  button.addEventListener("click", (event) => {
+    event.stopPropagation();
+    closePopup(popup);
+  });
 });
+
+setEditListeners();
+setImageListeners();
+setViewListeners();
