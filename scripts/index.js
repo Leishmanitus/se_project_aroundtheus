@@ -32,9 +32,6 @@ const modalViewCaption = modalView.querySelector(".view__caption");
 //close buttons
 const closeButtons = document.querySelectorAll(".modal__close-button");
 
-//abort controller
-const controller = new AbortController();
-
 const initialCards = [
   {
     name: "Great Cormorant",
