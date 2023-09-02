@@ -59,6 +59,15 @@ const initialCards = [
   },
 ];
 
+const handleRemoteClick = (event) => {
+  if (
+    event.target == event.currentTarget ||
+    !event.target.classList.contains("modal_opened")
+  ) {
+    closePopup(event.target);
+  }
+};
+
 const setEditListeners = () => {
   editForm.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -68,9 +77,8 @@ const setEditListeners = () => {
     event.target.reset();
     event.stopPropagation();
   });
-  editModal.addEventListener("click", function close(event) {
-    event.stopImmediatePropagation();
-    closePopup(event.target);
+  editModal.addEventListener("mousedown", (event) => {
+    handleRemoteClick(event);
   });
 };
 
@@ -86,16 +94,14 @@ const setImageListeners = () => {
     event.target.reset();
     event.stopPropagation();
   });
-  imageModal.addEventListener("click", function close(event) {
-    event.stopImmediatePropagation();
-    closePopup(event.target);
+  imageModal.addEventListener("mousedown", (event) => {
+    handleRemoteClick(event);
   });
 };
 
 const setViewListeners = () => {
-  modalView.addEventListener("click", function close(event) {
-    event.stopImmediatePropagation();
-    closePopup(modalView);
+  modalView.addEventListener("mousedown", (event) => {
+    handleRemoteClick(event);
   });
 };
 

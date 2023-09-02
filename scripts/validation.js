@@ -34,20 +34,18 @@ const toggleButtonState = (
   if (hasInvalidInput(inputElements)) {
     submitButton.classList.add(inactiveButtonClass);
     submitButton.disabled = true;
-    return;
+  } else {
+    submitButton.classList.remove(inactiveButtonClass);
+    submitButton.disabled = false;
   }
-  submitButton.classList.remove(inactiveButtonClass);
-  submitButton.disabled = false;
-  return;
 };
 
 const checkValidity = (formElement, inputElement, options) => {
   if (!inputElement.validity.valid) {
     showError(formElement, inputElement, options);
-    return;
+  } else {
+    hideError(formElement, inputElement, options);
   }
-  hideError(formElement, inputElement, options);
-  return;
 };
 
 const setEventListeners = (formElement, options) => {
