@@ -1,3 +1,5 @@
+import Card from "../components/Card.js";
+
 //profile constants
 const profile = document.querySelector(".profile");
 const profileName = profile.querySelector(".profile__name");
@@ -7,7 +9,7 @@ const newImageButton = profile.querySelector(".profile__button_type_add");
 
 //card constants
 const cardContainer = document.querySelector(".page__cards");
-const cardTemplate = cardContainer
+const cardTemplate = document
   .querySelector("#card-template")
   .content.querySelector(".card");
 
@@ -16,13 +18,13 @@ const editForm = document.forms["profile-edit-form"];
 const editModal = editForm.closest(".modal");
 const formName = editForm.querySelector("#form-name");
 const formDescription = editForm.querySelector("#form-description");
-const submitEditButton = editForm.querySelector(".form__save-button");
+// const submitEditButton = editForm.querySelector(".form__save-button");
 
 const imageForm = document.forms["image-add-form"];
 const imageModal = imageForm.closest(".modal");
 const formTitle = imageForm.querySelector("#form-title");
 const formLink = imageForm.querySelector("#form-link");
-const addImageButton = imageForm.querySelector(".form__save-button");
+// const addImageButton = imageForm.querySelector(".form__save-button");
 
 //image view constants
 const modalView = document.querySelector(".view");
@@ -32,7 +34,7 @@ const modalViewCaption = modalView.querySelector(".view__caption");
 //close buttons
 const closeButtons = document.querySelectorAll(".modal__close-button");
 
-const initialCards = [
+const initCards = [
   {
     name: "Great Cormorant",
     link: "./images/great-cormorant.jpg",
@@ -124,37 +126,38 @@ const closePopup = (popup) => {
   document.removeEventListener("keydown", handleEscapeKey);
 };
 
-const makeImage = (link, title) => {
-  modalViewImage.src = link;
-  modalViewImage.alt = title;
-  modalViewCaption.textContent = title;
+const previewImage = (element) => {
+  modalViewImage.src = element.getLink();
+  modalViewImage.alt = element.getName();
+  modalViewCaption.textContent = element.getName();
+  openPopup(modalView);
 };
 
-const makeCard = (card) => {
-  const newCard = cardTemplate.cloneNode(true);
-  const newImage = newCard.querySelector(".card__image");
-  const newCaption = newCard.querySelector(".card__caption");
-  const newTrashButton = newCard.querySelector(".card__trash-button");
-  const newHeartButton = newCard.querySelector(".card__heart-button");
-  newImage.addEventListener("click", () => {
-    const imageLink = newImage.src;
-    const imageTitle = newCaption.textContent;
-    makeImage(imageLink, imageTitle);
-    openPopup(modalView);
-  });
-  newTrashButton.addEventListener("click", (event) => {
-    event.stopImmediatePropagation();
-    event.target.closest(".card").remove();
-  });
-  newHeartButton.addEventListener("click", (event) => {
-    event.stopImmediatePropagation();
-    newHeartButton.classList.toggle("card__heart-button_liked");
-  });
-  newImage.src = card.link;
-  newImage.alt = card.name;
-  newCaption.textContent = card.name;
-  return newCard;
-};
+// const makeCard = (card) => {
+//   const newCard = cardTemplate.cloneNode(true);
+//   const newImage = newCard.querySelector(".card__image");
+//   const newCaption = newCard.querySelector(".card__caption");
+//   const newTrashButton = newCard.querySelector(".card__trash-button");
+//   const newHeartButton = newCard.querySelector(".card__heart-button");
+//   newImage.addEventListener("click", () => {
+//     const imageLink = newImage.src;
+//     const imageTitle = newCaption.textContent;
+//     makeImage(imageLink, imageTitle);
+//     openPopup(modalView);
+//   });
+//   newTrashButton.addEventListener("click", (event) => {
+//     event.stopImmediatePropagation();
+//     event.target.closest(".card").remove();
+//   });
+//   newHeartButton.addEventListener("click", (event) => {
+//     event.stopImmediatePropagation();
+//     newHeartButton.classList.toggle("card__heart-button_liked");
+//   });
+//   newImage.src = card.link;
+//   newImage.alt = card.name;
+//   newCaption.textContent = card.name;
+//   return newCard;
+// };
 
 editButton.addEventListener("click", (event) => {
   event.stopImmediatePropagation();
@@ -168,7 +171,10 @@ newImageButton.addEventListener("click", (event) => {
   openPopup(imageModal);
 });
 
-initialCards.forEach((card) => cardContainer.prepend(makeCard(card)));
+initCards.forEach((card) => {
+  const newCard = new Card(card, cardTemplate, previewImage);
+  cardContainer.prepend(newCard.generateCard());
+});
 closeButtons.forEach((button) => {
   const popup = button.closest(".modal");
   button.addEventListener("click", (event) => {
