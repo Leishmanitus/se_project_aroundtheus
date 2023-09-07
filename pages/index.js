@@ -1,4 +1,5 @@
 import Card from "../components/Card.js";
+import FormValidation from "../components/FormValidation.js";
 
 //profile constants
 const profile = document.querySelector(".profile");
@@ -14,6 +15,8 @@ const cardTemplate = document
   .content.querySelector(".card");
 
 //form constants
+const forms = [...document.forms];
+
 const editForm = document.forms["profile-edit-form"];
 const editModal = editForm.closest(".modal");
 const formName = editForm.querySelector("#form-name");
@@ -33,6 +36,15 @@ const modalViewCaption = modalView.querySelector(".view__caption");
 
 //close buttons
 const closeButtons = document.querySelectorAll(".modal__close-button");
+
+const selectorData = {
+  formSelector: ".form",
+  inputSelector: ".form__input",
+  submitButtonSelector: ".form__submit",
+  inactiveButtonClass: "form__submit_inactive",
+  inputErrorClass: "form__input_type_error",
+  errorVisibleClass: "form__error_visible",
+};
 
 const initCards = [
   {
@@ -60,6 +72,24 @@ const initCards = [
     link: "./images/canada-goose.jpg",
   },
 ];
+
+const previewImage = (element) => {
+  modalViewImage.src = element.getLink();
+  modalViewImage.alt = element.getName();
+  modalViewCaption.textContent = element.getName();
+  openPopup(modalView);
+};
+
+const createValidator = (selectorData, form) => {
+  const validator = new FormValidation(selectorData, form);
+  return validator;
+};
+
+//make a class of each form validation object
+forms.forEach((form) => {
+  const validator = createValidator(selectorData, form);
+  validator.enableValidation();
+});
 
 const handleRemoteClick = (event) => {
   if (
@@ -91,7 +121,7 @@ const setImageListeners = () => {
       name: formTitle.value,
       link: formLink.value,
     };
-    cardContainer.prepend(makeCard(cardInfo));
+    cardContainer.prepend(new Card(cardInfo, cardTemplate, previewImage));
     closePopup(imageModal);
     event.target.reset();
     event.stopPropagation();
@@ -126,39 +156,6 @@ const closePopup = (popup) => {
   document.removeEventListener("keydown", handleEscapeKey);
 };
 
-const previewImage = (element) => {
-  modalViewImage.src = element.getLink();
-  modalViewImage.alt = element.getName();
-  modalViewCaption.textContent = element.getName();
-  openPopup(modalView);
-};
-
-// const makeCard = (card) => {
-//   const newCard = cardTemplate.cloneNode(true);
-//   const newImage = newCard.querySelector(".card__image");
-//   const newCaption = newCard.querySelector(".card__caption");
-//   const newTrashButton = newCard.querySelector(".card__trash-button");
-//   const newHeartButton = newCard.querySelector(".card__heart-button");
-//   newImage.addEventListener("click", () => {
-//     const imageLink = newImage.src;
-//     const imageTitle = newCaption.textContent;
-//     makeImage(imageLink, imageTitle);
-//     openPopup(modalView);
-//   });
-//   newTrashButton.addEventListener("click", (event) => {
-//     event.stopImmediatePropagation();
-//     event.target.closest(".card").remove();
-//   });
-//   newHeartButton.addEventListener("click", (event) => {
-//     event.stopImmediatePropagation();
-//     newHeartButton.classList.toggle("card__heart-button_liked");
-//   });
-//   newImage.src = card.link;
-//   newImage.alt = card.name;
-//   newCaption.textContent = card.name;
-//   return newCard;
-// };
-
 editButton.addEventListener("click", (event) => {
   event.stopImmediatePropagation();
   formName.value = profileName.textContent;
@@ -171,10 +168,13 @@ newImageButton.addEventListener("click", (event) => {
   openPopup(imageModal);
 });
 
+//make a Card class for each card data item and display cards to the page
 initCards.forEach((card) => {
   const newCard = new Card(card, cardTemplate, previewImage);
   cardContainer.prepend(newCard.generateCard());
 });
+
+//set a listener on each close button
 closeButtons.forEach((button) => {
   const popup = button.closest(".modal");
   button.addEventListener("click", (event) => {

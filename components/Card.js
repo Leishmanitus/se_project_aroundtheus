@@ -24,12 +24,12 @@ export default class Card {
     );
   }
 
-  _getTemplate() {
+  _cloneTemplate() {
     return this._cardSelector.cloneNode(true);
   }
 
   generateCard() {
-    this._element = this._getTemplate();
+    this._element = this._cloneTemplate();
     this._cardImageElement = this._element.querySelector(".card__image");
     this._cardCaption = this._element.querySelector(".card__caption");
     this._cardDeleteElement = this._element.querySelector(
@@ -54,36 +54,3 @@ export default class Card {
     return this._link;
   }
 }
-
-//delete later
-const makeImage = (link, title) => {
-  modalViewImage.src = link;
-  modalViewImage.alt = title;
-  modalViewCaption.textContent = title;
-};
-
-const makeCard = (card) => {
-  const newCard = cardTemplate.cloneNode(true);
-  const newImage = newCard.querySelector(".card__image");
-  const newCaption = newCard.querySelector(".card__caption");
-  const newTrashButton = newCard.querySelector(".card__trash-button");
-  const newHeartButton = newCard.querySelector(".card__heart-button");
-  newImage.addEventListener("click", () => {
-    const imageLink = newImage.src;
-    const imageTitle = newCaption.textContent;
-    makeImage(imageLink, imageTitle);
-    openPopup(modalView);
-  });
-  newTrashButton.addEventListener("click", (event) => {
-    event.stopImmediatePropagation();
-    event.target.closest(".card").remove();
-  });
-  newHeartButton.addEventListener("click", (event) => {
-    event.stopImmediatePropagation();
-    newHeartButton.classList.toggle("card__heart-button_liked");
-  });
-  newImage.src = card.link;
-  newImage.alt = card.name;
-  newCaption.textContent = card.name;
-  return newCard;
-};
