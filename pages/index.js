@@ -73,13 +73,6 @@ const initCards = [
   },
 ];
 
-const previewImage = (element) => {
-  modalViewImage.src = element.getLink();
-  modalViewImage.alt = element.getName();
-  modalViewCaption.textContent = element.getName();
-  openPopup(modalView);
-};
-
 const createValidator = (selectorData, form) => {
   const validator = new FormValidation(selectorData, form);
   return validator;
@@ -121,7 +114,9 @@ const setImageListeners = () => {
       name: formTitle.value,
       link: formLink.value,
     };
-    cardContainer.prepend(new Card(cardInfo, cardTemplate, previewImage));
+    cardContainer.prepend(
+      new Card(cardInfo, cardTemplate, previewImage).generateCard()
+    );
     closePopup(imageModal);
     event.target.reset();
     event.stopPropagation();
@@ -138,11 +133,9 @@ const setViewListeners = () => {
 };
 
 const handleEscapeKey = (event) => {
+  const openedModal = document.querySelector(".modal_opened");
   if (event.key === "Escape") {
-    const openedModal = document.querySelector(".modal_opened");
-    if (openedModal) {
-      closePopup(openedModal);
-    }
+    closePopup(openedModal);
   }
 };
 
@@ -154,6 +147,13 @@ const openPopup = (popup) => {
 const closePopup = (popup) => {
   popup.classList.remove("modal_opened");
   document.removeEventListener("keydown", handleEscapeKey);
+};
+
+const previewImage = (element) => {
+  modalViewImage.src = element.getLink();
+  modalViewImage.alt = element.getName();
+  modalViewCaption.textContent = element.getName();
+  openPopup(modalView);
 };
 
 editButton.addEventListener("click", (event) => {
