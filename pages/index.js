@@ -140,26 +140,13 @@ editButton.addEventListener("click", () => {
   formName.value = profileName.textContent;
   formDescription.value = profileDescription.textContent;
   openPopup(editModal);
+  editFormValidator.enableSubmit();
   editFormValidator.enableValidation();
 });
 
 newImageButton.addEventListener("click", () => {
   openPopup(imageModal);
   imageFormValidator.enableValidation();
-});
-
-//set a listener on each close button
-// closeButtons.forEach((button) => {
-//   const popup = button.closest(".modal");
-//   button.addEventListener("click", () => {
-//     closePopup(popup);
-//   });
-// });
-
-//create class objects
-//create validators
-forms.forEach((form) => {
-  createValidator(selectorData, form).enableValidation;
 });
 
 //make a Card class for each card data item and display cards to the page

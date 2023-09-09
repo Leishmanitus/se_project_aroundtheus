@@ -11,10 +11,13 @@ export default class FormValidation {
   }
 
   _checkValidity(inputElement) {
+    const errorElement = this._formElement.querySelector(
+      `#${inputElement.id}-error`
+    );
     if (!inputElement.validity.valid) {
-      this._showError(inputElement);
+      this._showError(inputElement, errorElement);
     } else {
-      this._hideError(inputElement);
+      this._hideError(inputElement, errorElement);
     }
   }
 
@@ -32,6 +35,7 @@ export default class FormValidation {
         this._checkValidity(inputElement);
         this._toggleButtonState();
       });
+      this._checkValidity(inputElement);
     });
   }
 
@@ -41,19 +45,13 @@ export default class FormValidation {
     });
   }
 
-  _showError(inputElement) {
-    const errorElement = this._formElement.querySelector(
-      `#${inputElement.id}-error`
-    );
+  _showError(inputElement, errorElement) {
     inputElement.classList.add(this._data.inputErrorClass);
     errorElement.textContent = inputElement.validationMessage;
     errorElement.classList.add(this._data.errorVisibleClass);
   }
 
-  _hideError(inputElement) {
-    const errorElement = this._formElement.querySelector(
-      `#${inputElement.id}-error`
-    );
+  _hideError(inputElement, errorElement) {
     inputElement.classList.remove(this._data.inputErrorClass);
     errorElement.textContent = "";
     errorElement.classList.remove(this._data.errorVisibleClass);
