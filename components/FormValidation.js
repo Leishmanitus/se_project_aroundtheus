@@ -42,21 +42,21 @@ export default class FormValidation {
   }
 
   _showError(inputElement) {
-    this._errorElement = this._formElement.querySelector(
+    const errorElement = this._formElement.querySelector(
       `#${inputElement.id}-error`
     );
     inputElement.classList.add(this._data.inputErrorClass);
-    this._errorElement.textContent = inputElement.validationMessage;
-    this._errorElement.classList.add(this._data.errorVisibleClass);
+    errorElement.textContent = inputElement.validationMessage;
+    errorElement.classList.add(this._data.errorVisibleClass);
   }
 
   _hideError(inputElement) {
-    this._errorElement = this._formElement.querySelector(
+    const errorElement = this._formElement.querySelector(
       `#${inputElement.id}-error`
     );
     inputElement.classList.remove(this._data.inputErrorClass);
-    this._errorElement.textContent = "";
-    this._errorElement.classList.remove(this._data.errorVisibleClass);
+    errorElement.textContent = "";
+    errorElement.classList.remove(this._data.errorVisibleClass);
   }
 
   resetForm() {

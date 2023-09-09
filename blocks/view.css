@@ -12,7 +12,6 @@
 
 .view__image {
   max-width: 816px;
-  max-height: 540px;
 }
 
 .view__caption {
@@ -23,9 +22,14 @@
   margin: 10px 0 0;
 }
 
+@media screen and (max-width: 780px) {
+  .view__image {
+    max-width: 585px;
+  }
+}
+
 @media screen and (max-width: 580px) {
   .view__image {
     max-width: 240px;
-    max-height: 299px;
   }
 }
