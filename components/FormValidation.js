@@ -57,10 +57,6 @@ export default class FormValidation {
     errorElement.classList.remove(this._data.errorVisibleClass);
   }
 
-  resetForm() {
-    this._formElement.reset;
-  }
-
   //for use by add image form
   enableSubmit() {
     this._submitButton.classList.remove(this._data.inactiveButtonClass);

@@ -41,16 +41,19 @@ const viewCloseButton = modalView.querySelector(".modal__close-button");
 
 //form validators
 const editFormValidator = createValidator(selectorData, editForm);
+editFormValidator.enableValidation();
 const imageFormValidator = createValidator(selectorData, imageForm);
+imageFormValidator.enableValidation();
 
 //declare functions
 const openPopup = (popup) => {
   popup.classList.add("modal_opened");
+  document.addEventListener("keydown", handleEscapeKey);
 };
 
 const closePopup = (popup) => {
   popup.classList.remove("modal_opened");
-  // document.removeEventListener("keydown", handleEscapeKey);
+  document.removeEventListener("keydown", handleEscapeKey);
 };
 
 const handleRemoteClick = (event) => {
@@ -67,8 +70,8 @@ const setEditListeners = () => {
     event.preventDefault();
     profileName.textContent = formName.value;
     profileDescription.textContent = formDescription.value;
+    event.target.reset();
     closePopup(editModal);
-    editFormValidator.resetForm();
   });
   editModal.addEventListener("mousedown", (event) => {
     handleRemoteClick(event);
@@ -84,9 +87,9 @@ const setImageListeners = () => {
       link: formLink.value,
     };
     cardContainer.prepend(createCard(cardInfo));
-    closePopup(imageModal);
-    imageFormValidator.resetForm();
+    event.target.reset();
     imageFormValidator.disableSubmit();
+    closePopup(imageModal);
   });
   imageModal.addEventListener("mousedown", (event) => {
     handleRemoteClick(event);
@@ -134,19 +137,14 @@ function createCard(card) {
 }
 
 //add event listeners
-document.addEventListener("keydown", handleEscapeKey);
-
 editButton.addEventListener("click", () => {
   formName.value = profileName.textContent;
   formDescription.value = profileDescription.textContent;
   openPopup(editModal);
-  editFormValidator.enableSubmit();
-  editFormValidator.enableValidation();
 });
 
 newImageButton.addEventListener("click", () => {
   openPopup(imageModal);
-  imageFormValidator.enableValidation();
 });
 
 //make a Card class for each card data item and display cards to the page
