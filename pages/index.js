@@ -146,7 +146,6 @@ editButton.addEventListener("click", () => {
 
 newImageButton.addEventListener("click", () => {
   openPopup(imageModal);
-  imageFormValidator.resetValidation([formTitle, formLink]);
 });
 
 //make a Card class for each card data item and display cards to the page

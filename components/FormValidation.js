@@ -35,7 +35,6 @@ export default class FormValidation {
         this._checkValidity(inputElement);
         this._toggleButtonState();
       });
-      this._checkValidity(inputElement);
     });
   }
 
@@ -67,13 +66,11 @@ export default class FormValidation {
     this._submitButton.disabled = true;
   }
 
-  resetValidation(inputList) {
+  resetValidation() {
     this._toggleButtonState();
-    inputList.forEach((inputElement) => {
+    this._inputElements.forEach((inputElement) => {
       this._checkValidity(inputElement);
     });
-    // this._checkValidity(firstInput);
-    // this._checkValidity(secondInput);
   }
 
   //call from within the opened form
