@@ -39,12 +39,6 @@ export default class FormValidation {
     });
   }
 
-  _hasInvalidInput() {
-    return this._inputElements.some((inputElement) => {
-      return !inputElement.validity.valid;
-    });
-  }
-
   _showError(inputElement, errorElement) {
     inputElement.classList.add(this._data.inputErrorClass);
     errorElement.textContent = inputElement.validationMessage;
@@ -57,6 +51,12 @@ export default class FormValidation {
     errorElement.classList.remove(this._data.errorVisibleClass);
   }
 
+  _hasInvalidInput() {
+    return this._inputElements.some((inputElement) => {
+      return !inputElement.validity.valid;
+    });
+  }
+
   //for use by add image form
   enableSubmit() {
     this._submitButton.classList.remove(this._data.inactiveButtonClass);
@@ -65,6 +65,15 @@ export default class FormValidation {
   disableSubmit() {
     this._submitButton.classList.add(this._data.inactiveButtonClass);
     this._submitButton.disabled = true;
+  }
+
+  resetValidation(inputList) {
+    this._toggleButtonState();
+    inputList.forEach((inputElement) => {
+      this._checkValidity(inputElement);
+    });
+    // this._checkValidity(firstInput);
+    // this._checkValidity(secondInput);
   }
 
   //call from within the opened form

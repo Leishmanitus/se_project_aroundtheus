@@ -48,12 +48,12 @@ imageFormValidator.enableValidation();
 //declare functions
 const openPopup = (popup) => {
   popup.classList.add("modal_opened");
-  document.addEventListener("keydown", handleEscapeKey);
+  document.addEventListener("keydown", (event) => handleEscapeKey(event));
 };
 
 const closePopup = (popup) => {
   popup.classList.remove("modal_opened");
-  document.removeEventListener("keydown", handleEscapeKey);
+  document.removeEventListener("keydown", (event) => handleEscapeKey(event));
 };
 
 const handleRemoteClick = (event) => {
@@ -141,10 +141,12 @@ editButton.addEventListener("click", () => {
   formName.value = profileName.textContent;
   formDescription.value = profileDescription.textContent;
   openPopup(editModal);
+  editFormValidator.resetValidation([formName, formDescription]);
 });
 
 newImageButton.addEventListener("click", () => {
   openPopup(imageModal);
+  imageFormValidator.resetValidation([formTitle, formLink]);
 });
 
 //make a Card class for each card data item and display cards to the page
