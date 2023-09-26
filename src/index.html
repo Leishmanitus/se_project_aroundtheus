@@ -4,12 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Around The U.S.</title>
-    <link rel="stylesheet" href="./pages/index.css" />
   </head>
   <body class="page">
     <header class="page__header header">
       <img
-        src="./images/logo.svg"
+        src="<%= require('./images/logo.svg')%>"
         alt="Around The U.S."
         class="header__image"
       />
@@ -17,7 +16,7 @@
     <main class="page__content">
       <section class="page__profile profile">
         <img
-          src="./images/jacques-cousteau.jpg"
+          src="<%= require('./images/jacques-cousteau.jpg')%>"
           alt="jacques-cousteau wearing a red beanie and blue collared shirt"
           class="profile__avatar"
         />
@@ -40,7 +39,7 @@
       <section class="page__cards">
         <template id="card-template">
           <div class="card">
-            <img src="" alt="" class="card__image" />
+            <img src="#" alt="" class="card__image" />
             <button class="card__trash-button"></button>
             <div class="card__info">
               <h2 class="card__caption"></h2>

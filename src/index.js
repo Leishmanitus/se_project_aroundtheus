@@ -1,6 +1,7 @@
-import Card from "../components/Card.js";
-import FormValidation from "../components/FormValidation.js";
-import { initCards, selectorData } from "../globals/constants.js";
+import "./styles/index.css";
+import Card from "./components/Card.js";
+import FormValidation from "./components/FormValidation.js";
+import { initCards, selectorData } from "./globals/constants.js";
 
 //search DOM
 //profile constants
