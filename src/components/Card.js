@@ -17,7 +17,7 @@ export default class Card {
 
   _setEventListeners = () => {
     this._cardImageElement.addEventListener("click", () =>
-      this._handlePreviewImage(this)
+      this._handlePreviewImage()
     );
     this._cardDeleteElement.addEventListener("click", this._deleteCard);
     this._cardHeartButton.addEventListener("click", this._likeImageToggle);
@@ -36,7 +36,7 @@ export default class Card {
     );
     this._cardHeartButton = this._element.querySelector(".card__heart-button");
 
-    this._cardImageElement.src = this._link;
+    this._cardImageElement.src = `<%= require(${this._link})%>`;
     this._cardImageElement.alt = this._name;
     this._cardCaption.textContent = this._name;
 
