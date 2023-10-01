@@ -1,12 +1,14 @@
+import { formData } from "../globals/constants";
+
 export default class FormValidation {
-  constructor(data, formElement) {
-    this._data = data;
-    this._formElement = formElement;
+  constructor(formElement) {
+    // this._data = formData;
+    this._formElement = document.querySelector(formElement);
     this._inputElements = [
-      ...this._formElement.querySelectorAll(this._data.inputSelector),
+      ...this._formElement.querySelectorAll(formData.inputSelector),
     ];
     this._submitButton = this._formElement.querySelector(
-      this._data.submitButtonSelector
+      formData.submitButtonSelector
     );
   }
 

@@ -4,7 +4,7 @@ import { formData } from "../globals/constants.js";
 export default class PopupWithForm extends Popup {
   constructor(popupSelector, handleFormSubmit) {
     super({ popupSelector });
-    this._popupForm = this._popupElement.querySelector(".form");
+    this._popupForm = this._popupElement.querySelector(formData.formSelector);
     this._handleFormSubmit = handleFormSubmit;
   }
 
@@ -15,6 +15,7 @@ export default class PopupWithForm extends Popup {
       .querySelectorAll(formData.inputSelector)
       .array.forEach((inputElement) => {
         inputObject[index] = inputElement.value;
+        index++;
       });
     return inputObject;
   }

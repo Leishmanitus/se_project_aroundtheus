@@ -1,12 +1,13 @@
 {
   "name": "se_project_aroundtheus",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "A mock profile page project",
   "main": "index.js",
   "scripts": {
     "build": "rm -rf dist && webpack --mode production",
     "dev": "webpack serve --mode development"
   },
+  "keywords": [],
   "author": "Tyler Leishman",
   "license": "ISC",
   "devDependencies": {
@@ -20,6 +21,7 @@
     "html-webpack-plugin": "5.5.0",
     "mini-css-extract-plugin": "2.6.1",
     "postcss-loader": "7.0.1",
+    "webpack": "5.76.0",
     "webpack-cli": "4.10.0",
     "webpack-dev-server": "4.9.3"
   },

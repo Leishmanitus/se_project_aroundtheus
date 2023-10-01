@@ -13,8 +13,9 @@ module.exports = {
     filename: "main.js",
     publicPath: "",
   },
-  mode: "development",
+  target: ["web", "es5"],
   stats: "errors-only",
+  mode: "development",
   devServer: {
     static: path.resolve(__dirname, "./dist"), // specifies a folder from where to serve the application and its contents
     compress: true, // this will speed up file loading in development mode
@@ -53,7 +54,6 @@ module.exports = {
       },
     ],
   },
-  stats: "errors-only",
   plugins: [
     new HtmlWebpackPlugin({
       template: "./src/index.html", // path to our index.html file

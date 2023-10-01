@@ -1,8 +1,12 @@
+import { cardData } from "../globals/constants";
+
 export default class Card {
-  constructor({ name, link }, cardSelector, handlePreviewImage) {
+  constructor({ name, link }, handlePreviewImage) {
     this._name = name;
     this._link = link;
-    this._cardSelector = cardSelector;
+    this._cardSelector = document
+      .querySelector(cardData.templateId)
+      .content.querySelector(cardData.cardSelector);
     this._handlePreviewImage = handlePreviewImage;
   }
 

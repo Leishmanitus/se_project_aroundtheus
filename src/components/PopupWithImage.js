@@ -11,6 +11,6 @@ export default class PopupWithImage extends Popup {
 
   open() {
     super.open();
-    this._handleSource();
+    this._handleSource(this);
   }
 }

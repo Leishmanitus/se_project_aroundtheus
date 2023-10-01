@@ -53,7 +53,7 @@
       <p class="footer__copyright">&copy; 2022 Around The U.S.</p>
     </footer>
 
-    <div class="modal">
+    <div class="modal modal_type_edit">
       <div class="modal__container">
         <h2 class="modal__title">Edit Profile</h2>
         <form class="modal__form form" name="profile-edit-form" novalidate>
@@ -89,10 +89,10 @@
       </div>
     </div>
 
-    <div class="modal">
+    <div class="modal modal_type_card">
       <div class="modal__container">
         <h2 class="modal__title">New Image</h2>
-        <form class="modal__form form" name="image-add-form" novalidate>
+        <form class="modal__form form" name="card-add-form" novalidate>
           <label class="form__label">
             <input
               type="text"
@@ -136,8 +136,5 @@
         <h2 class="view__caption"></h2>
       </div>
     </div>
-
-    <script type="module" src="./pages/index.js"></script>
-    <script type="module" src="./components/FormValidation.js"></script>
   </body>
 </html>

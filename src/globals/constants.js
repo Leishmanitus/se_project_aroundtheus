@@ -1,34 +1,42 @@
 export const initCards = [
   {
     name: "Great Cormorant",
-    link: "<%= require('../images/great-cormorant.jpg')%>",
+    link: "<%= require('./images/great-cormorant.jpg')%>",
   },
   {
     name: "Kingfisher",
-    link: "<%= require('../images/kingfisher.jpg')%>",
+    link: "<%= require('./images/kingfisher.jpg')%>",
   },
   {
     name: "Green Parakeet",
-    link: "<%= require('../images/green-parakeet.jpg')%>",
+    link: "<%= require('./images/green-parakeet.jpg')%>",
   },
   {
     name: "Pelican",
-    link: "<%= require('../images/pelican.jpg')%>",
+    link: "<%= require('./images/pelican.jpg')%>",
   },
   {
     name: "Black Crow",
-    link: "<%= require('../images/crow.jpg')%>",
+    link: "<%= require('./images/crow.jpg')%>",
   },
   {
     name: "Canada Goose",
-    link: "<%= require('../images/canada-goose.jpg')%>",
+    link: "<%= require('./images/canada-goose.jpg')%>",
   },
 ];
 
+export const cardData = {
+  containerSelector: ".page__cards",
+  cardSelector: ".card",
+  templateId: "#card-template",
+};
+
 export const popupData = {
+  editPopupSelector: ".modal_type_edit",
+  cardPopupSelector: ".modal_type_card",
+  previewPopupSelector: ".view",
   imageSelector: ".view__image",
   captionSelector: ".view__caption",
-  imagePreview: ".view",
 };
 
 export const userData = {
@@ -40,9 +48,8 @@ export const formData = {
   formSelector: ".form",
   inputSelector: ".form__input",
   submitButtonSelector: ".form__submit",
-  containerSelector: ".page__cards",
-  editForm: "#profile-edit-form",
-  cardForm: "#image-add-form",
+  editFormId: "#profile-edit-form",
+  cardFormId: "#card-add-form",
   nameId: "#form-name",
   descriptionId: "#form-description",
   titleId: "#form-title",
