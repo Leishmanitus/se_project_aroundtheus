@@ -5,22 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Around The U.S.</title>
   </head>
+
   <body class="page">
     <header class="page__header header">
       <img
-        src="<%= require('./images/logo.svg')%>"
+        src="<%=require('./images/logo.svg')%>"
         alt="Around The U.S."
         class="header__image"
       />
     </header>
+
     <main class="page__content">
       <section class="page__profile profile">
         <img
-          src="<%= require('./images/jacques-cousteau.jpg')%>"
+          src="<%=require('./images/jacques-cousteau.jpg')%>"
           alt="jacques-cousteau wearing a red beanie and blue collared shirt"
           class="profile__avatar"
         />
-
         <div class="profile__info">
           <div class="profile__divider">
             <h1 class="profile__name">Jacues Cousteau</h1>
@@ -36,8 +37,9 @@
           type="button"
         ></button>
       </section>
+
       <section class="page__cards">
-        <template id="card-template">
+        <template class="template">
           <div class="card">
             <img src="#" alt="" class="card__image" />
             <button class="card__trash-button"></button>
@@ -49,6 +51,7 @@
         </template>
       </section>
     </main>
+
     <footer class="page__footer footer">
       <p class="footer__copyright">&copy; 2022 Around The U.S.</p>
     </footer>

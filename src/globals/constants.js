@@ -1,35 +1,39 @@
+const greatCormorant = new URL(
+  "../images/great-cormorant.jpg",
+  import.meta.url
+);
+const kingFisher = new URL("../images/kingfisher.jpg", import.meta.url);
+const greenParakeet = new URL("../images/green-parakeet.jpg", import.meta.url);
+const pelican = new URL("../images/pelican.jpg", import.meta.url);
+const blackCrow = new URL("../images/crow.jpg", import.meta.url);
+const canadaGoose = new URL("../images/canada-goose.jpg", import.meta.url);
+
 export const initCards = [
   {
     name: "Great Cormorant",
-    link: "<%= require('./images/great-cormorant.jpg')%>",
+    link: greatCormorant,
   },
   {
     name: "Kingfisher",
-    link: "<%= require('./images/kingfisher.jpg')%>",
+    link: kingFisher,
   },
   {
     name: "Green Parakeet",
-    link: "<%= require('./images/green-parakeet.jpg')%>",
+    link: greenParakeet,
   },
   {
     name: "Pelican",
-    link: "<%= require('./images/pelican.jpg')%>",
+    link: pelican,
   },
   {
     name: "Black Crow",
-    link: "<%= require('./images/crow.jpg')%>",
+    link: blackCrow,
   },
   {
     name: "Canada Goose",
-    link: "<%= require('./images/canada-goose.jpg')%>",
+    link: canadaGoose,
   },
 ];
-
-export const cardData = {
-  containerSelector: ".page__cards",
-  cardSelector: ".card",
-  templateId: "#card-template",
-};
 
 export const popupData = {
   editPopupSelector: ".modal_type_edit",
@@ -40,8 +44,8 @@ export const popupData = {
 };
 
 export const userData = {
-  name: ".profile__name",
-  job: ".profile__description",
+  name: document.querySelector(".profile__name").textContent,
+  job: document.querySelector(".profile__description").textContent,
 };
 
 export const formData = {

@@ -1,12 +1,8 @@
-import { cardData } from "../globals/constants";
-
 export default class Card {
-  constructor({ name, link }, handlePreviewImage) {
+  constructor({ name, link }, handlePreviewImage, templateElement) {
     this._name = name;
     this._link = link;
-    this._cardSelector = document
-      .querySelector(cardData.templateId)
-      .content.querySelector(cardData.cardSelector);
+    this._cardElement = templateElement.content.querySelector(".card");
     this._handlePreviewImage = handlePreviewImage;
   }
 
@@ -28,7 +24,8 @@ export default class Card {
   };
 
   _cloneTemplate = () => {
-    return this._cardSelector.cloneNode(true);
+    const card = this._cardElement.cloneNode(true);
+    return card;
   };
 
   generateCard() {
@@ -40,7 +37,7 @@ export default class Card {
     );
     this._cardHeartButton = this._element.querySelector(".card__heart-button");
 
-    this._cardImageElement.src = `<%= require(${this._link})%>`;
+    this._cardImageElement.src = this._link;
     this._cardImageElement.alt = this._name;
     this._cardCaption.textContent = this._name;
 
@@ -55,5 +52,9 @@ export default class Card {
 
   getLink() {
     return this._link;
+  }
+
+  print(item) {
+    console.log(item);
   }
 }

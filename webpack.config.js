@@ -6,7 +6,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 module.exports = {
   devtool: "inline-source-map",
   entry: {
-    main: "./src/pages/index.js",
+    main: "./src/index.js",
   },
   output: {
     path: path.resolve(__dirname, "dist"),
@@ -17,9 +17,9 @@ module.exports = {
   stats: "errors-only",
   mode: "development",
   devServer: {
-    static: path.resolve(__dirname, "./dist"), // specifies a folder from where to serve the application and its contents
+    static: path.resolve(__dirname, "dist"), // specifies a folder from where to serve the application and its contents
     compress: true, // this will speed up file loading in development mode
-    port: 8080, // will open your site at localhost:8080 (you can use another port)
+    port: 8008, // will open your site at localhost:8080 (you can use another port)
     open: true, // site will open automatically in the browser after executing npm run dev
     liveReload: true,
     hot: false,
@@ -33,7 +33,6 @@ module.exports = {
         test: /\.js$/,
         // all files must be processed by babel-loader
         loader: "babel-loader",
-        // exclude the node_modules folder, we don't need to process files in it
         exclude: "/node_modules/",
       },
       {
