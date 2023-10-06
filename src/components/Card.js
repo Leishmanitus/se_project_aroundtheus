@@ -16,9 +16,10 @@ export default class Card {
   };
 
   _setEventListeners = () => {
-    this._cardImageElement.addEventListener("click", () =>
-      this._handlePreviewImage()
-    );
+    this._cardImageElement.addEventListener("click", () => {
+      const source = { link: this.getLink(), name: this.getName() };
+      this._handlePreviewImage(source);
+    });
     this._cardDeleteElement.addEventListener("click", this._deleteCard);
     this._cardHeartButton.addEventListener("click", this._likeImageToggle);
   };

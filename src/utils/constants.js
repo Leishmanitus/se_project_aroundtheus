@@ -43,10 +43,10 @@ export const popupData = {
   captionSelector: ".view__caption",
 };
 
-export const userData = {
-  name: document.querySelector(".profile__name").textContent,
-  job: document.querySelector(".profile__description").textContent,
-};
+// export const userData = {
+//   name: ".profile__name",
+//   job: ".profile__job",
+// };
 
 export const formData = {
   formSelector: ".form",
@@ -55,7 +55,7 @@ export const formData = {
   editFormId: "#profile-edit-form",
   cardFormId: "#card-add-form",
   nameId: "#form-name",
-  descriptionId: "#form-description",
+  descriptionId: "#form-job",
   titleId: "#form-title",
   linkId: "#form-link",
   inactiveButtonClass: "form__submit_inactive",

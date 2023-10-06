@@ -20,12 +20,27 @@ export default class Popup {
     }
   }
 
+  // _handleRemoteClick = (event) => {
+  //   if (
+  //     event.currentTarget === event.target ||
+  //     !event.target.classList.contains("modal_opened")
+  //   ) {
+  //     this.close(event.target);
+  //   }
+  // };
+
   setEventListeners() {
-    document.setEventListeners("keyup", (event) =>
-      this._handleEscapeClose(event)
-    );
-    this._popupElement
-      .querySelector(".modal__close-button")
-      .setEventListeners("click", () => this.close());
+    document.addEventListener("keyup", (event) => {
+      this._handleEscapeClose(event);
+    });
+
+    this._popupElement.addEventListener("click", (event) => {
+      if (
+        event.target.classList.contains("modal__close-button") ||
+        event.target.classList.contains("modal_opened")
+      ) {
+        this.close();
+      }
+    });
   }
 }
