@@ -38,9 +38,9 @@ export const initCards = [
 export const popupData = {
   editPopupSelector: ".modal_type_edit",
   cardPopupSelector: ".modal_type_card",
-  previewPopupSelector: ".view",
-  imageSelector: ".view__image",
-  captionSelector: ".view__caption",
+  previewPopupSelector: ".modal_type_preview",
+  imageSelector: ".modal__image",
+  captionSelector: ".modal__caption",
 };
 
 // export const userData = {
