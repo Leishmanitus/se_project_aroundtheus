@@ -64,7 +64,7 @@
             <input
               type="text"
               id="form-name"
-              name="name-entry"
+              name="name"
               class="form__input"
               placeholder="Name"
               minlength="2"
@@ -77,7 +77,7 @@
             <input
               type="text"
               id="form-description"
-              name="description-entry"
+              name="job"
               class="form__input"
               placeholder="Description"
               minlength="2"
@@ -100,7 +100,7 @@
             <input
               type="text"
               id="form-title"
-              name="title-entry"
+              name="title"
               class="form__input"
               placeholder="Title"
               minlength="1"
@@ -113,18 +113,14 @@
             <input
               type="url"
               id="form-link"
-              name="link-entry"
+              name="link"
               class="form__input"
               placeholder="Image Link"
               required
             />
             <span class="form__error" id="form-link-error"></span>
           </label>
-          <button
-            type="submit"
-            class="form__submit form__submit_inactive"
-            disabled
-          >
+          <button type="submit" class="form__submit form__submit_inactive">
             Create
           </button>
         </form>
@@ -133,7 +129,7 @@
     </div>
 
     <div class="modal modal_type_preview">
-      <div class="modal_type_preview__container">
+      <div class="modal__container modal__container_type_preview">
         <img src="#" alt="" class="modal__image" />
         <button class="modal__close-button" type="button"></button>
         <h2 class="modal__caption"></h2>

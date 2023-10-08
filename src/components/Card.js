@@ -1,6 +1,6 @@
 export default class Card {
-  constructor({ name, link }, handlePreviewImage, templateElement) {
-    this._name = name;
+  constructor({ title, link }, handlePreviewImage, templateElement) {
+    this._title = title;
     this._link = link;
     this._cardElement = templateElement.content.querySelector(".card");
     this._handlePreviewImage = handlePreviewImage;
@@ -17,7 +17,7 @@ export default class Card {
 
   _setEventListeners = () => {
     this._cardImageElement.addEventListener("click", () => {
-      const values = { link: this.getLink(), name: this.getName() };
+      const values = { title: this._title, link: this._link };
       this._handlePreviewImage(values);
     });
     this._cardDeleteElement.addEventListener("click", this._deleteCard);
@@ -29,6 +29,12 @@ export default class Card {
     return card;
   };
 
+  _setImageValues = () => {
+    this._cardImageElement.src = this._link;
+    this._cardImageElement.alt = this._title;
+    this._cardCaption.textContent = this._title;
+  };
+
   generateCard() {
     this._element = this._cloneTemplate();
     this._cardImageElement = this._element.querySelector(".card__image");
@@ -38,9 +44,7 @@ export default class Card {
     );
     this._cardHeartButton = this._element.querySelector(".card__heart-button");
 
-    this._cardImageElement.src = this._link;
-    this._cardImageElement.alt = this._name;
-    this._cardCaption.textContent = this._name;
+    this._setImageValues();
 
     this._setEventListeners();
 
@@ -48,14 +52,10 @@ export default class Card {
   }
 
   getName() {
-    return this._name;
+    return this._title;
   }
 
   getLink() {
     return this._link;
-  }
-
-  print(item) {
-    console.log(item);
   }
 }

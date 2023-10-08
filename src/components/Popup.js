@@ -5,42 +5,36 @@ export default class Popup {
 
   open() {
     this._popupElement.classList.add("modal_opened");
+    this.setEventListeners();
   }
 
   close() {
     this._popupElement.classList.remove("modal_opened");
+    this.deleteEventListeners();
   }
 
-  _handleEscapeClose(event) {
+  _handleEscapeClose = (event) => {
     if (event.key === "Escape") {
-      const openedModal = document.querySelector(".modal_opened");
-      if (openedModal) {
-        this.close();
-      }
+      this.close();
     }
-  }
+  };
 
-  // _handleRemoteClick = (event) => {
-  //   if (
-  //     event.currentTarget === event.target ||
-  //     !event.target.classList.contains("modal_opened")
-  //   ) {
-  //     this.close(event.target);
-  //   }
-  // };
+  _handleClose = (event) => {
+    if (
+      event.target.classList.contains("modal__close-button") ||
+      event.target.classList.contains("modal_opened")
+    ) {
+      this.close();
+    }
+  };
 
   setEventListeners() {
-    document.addEventListener("keyup", (event) => {
-      this._handleEscapeClose(event);
-    });
+    document.addEventListener("keydown", this._handleEscapeClose);
+    this._popupElement.addEventListener("click", this._handleClose);
+  }
 
-    this._popupElement.addEventListener("click", (event) => {
-      if (
-        event.target.classList.contains("modal__close-button") ||
-        event.target.classList.contains("modal_opened")
-      ) {
-        this.close();
-      }
-    });
+  deleteEventListeners() {
+    document.removeEventListener("keydown", this._handleEscapeClose);
+    this._popupElement.removeEventListener("click", this._handleClose);
   }
 }

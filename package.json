@@ -1,6 +1,6 @@
 {
   "name": "se_project_aroundtheus",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "A mock profile page project",
   "main": "index.js",
   "scripts": {

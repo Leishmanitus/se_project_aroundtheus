@@ -36,10 +36,13 @@
   margin: auto;
 }
 
-.modal_type_preview__container {
+.modal__container_type_preview {
+  width: unset;
+  height: unset;
   max-width: 75vw;
   max-height: 50vh;
   position: relative;
+  display: unset;
   background-color: opacity(0.5);
 }
 
@@ -52,6 +55,7 @@
   font-family: Inter, Arial, Helvetica, sans-serif;
   font-size: 12px;
   line-height: 1.2;
+  background-color: transparent;
   color: #fff;
   margin: 10px 0 0;
 }

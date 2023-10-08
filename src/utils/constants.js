@@ -10,43 +10,30 @@ const canadaGoose = new URL("../images/canada-goose.jpg", import.meta.url);
 
 export const initCards = [
   {
-    name: "Great Cormorant",
+    title: "Great Cormorant",
     link: greatCormorant,
   },
   {
-    name: "Kingfisher",
+    title: "Kingfisher",
     link: kingFisher,
   },
   {
-    name: "Green Parakeet",
+    title: "Green Parakeet",
     link: greenParakeet,
   },
   {
-    name: "Pelican",
+    title: "Pelican",
     link: pelican,
   },
   {
-    name: "Black Crow",
+    title: "Black Crow",
     link: blackCrow,
   },
   {
-    name: "Canada Goose",
+    title: "Canada Goose",
     link: canadaGoose,
   },
 ];
-
-export const popupData = {
-  editPopupSelector: ".modal_type_edit",
-  cardPopupSelector: ".modal_type_card",
-  previewPopupSelector: ".modal_type_preview",
-  imageSelector: ".modal__image",
-  captionSelector: ".modal__caption",
-};
-
-// export const userData = {
-//   name: ".profile__name",
-//   job: ".profile__job",
-// };
 
 export const formData = {
   formSelector: ".form",
