@@ -43,12 +43,12 @@
   max-height: 50vh;
   position: relative;
   display: unset;
-  background-color: opacity(0.5);
+  background-color: transparent;
 }
 
 .modal__image {
-  max-width: 816px;
-  max-height: 60vh;
+  max-width: 75vw;
+  max-height: 50vh;
 }
 
 .modal__caption {

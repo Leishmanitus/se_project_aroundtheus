@@ -6,6 +6,7 @@ import Card from "../components/Card.js";
 import FormValidation from "../components/FormValidation.js";
 import { initCards, formData } from "../utils/constants.js";
 import UserInfo from "../components/UserInfo";
+import Api from "../components/Api";
 
 //search DOM
 //profile constants
@@ -74,6 +75,18 @@ cardButton.addEventListener("click", () => {
 
 //preview image
 const previewPopup = new PopupWithImage(".modal_type_preview");
+
+const confirmPopup = new Popup(".modal_type_confirm");
+
+const api = new Api({
+  baseUrl: "https://around-api.en.tripleten-services.com/v1",
+  headers: {
+    authorization: "845334f8-31bb-491e-8a36-b67d1543baac",
+    "Content-Type": "application/json",
+  },
+});
+
+api.getUserInformation();
 
 cardList.clear();
 cardList.renderItems();
