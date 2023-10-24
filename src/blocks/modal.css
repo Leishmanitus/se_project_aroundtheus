@@ -7,7 +7,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.5);
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.5s, visibility 0.5s;
@@ -26,7 +26,7 @@
 .modal__container {
   z-index: 1;
   width: 430px;
-  height: 330px;
+  max-height: 330px;
   position: relative;
   display: flex;
   flex-flow: column nowrap;
@@ -82,8 +82,7 @@
   position: absolute;
   top: -48px;
   right: -48px;
-  background: url("../images/close-icon.svg") center no-repeat;
-  background-size: cover;
+  background: url("../images/close-icon.svg") center/cover no-repeat;
   border: none;
   cursor: pointer;
 }

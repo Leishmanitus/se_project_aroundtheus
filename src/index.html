@@ -18,19 +18,24 @@
     <main class="page__content">
       <section class="page__profile profile">
         <img
+          src="<%=require('./images/pencil.svg')%>"
+          alt="a pencil over the profile pic"
+          class="profile__avatar-edit"
+        />
+        <img
           src="<%=require('./images/jacques-cousteau.jpg')%>"
           alt="jacques-cousteau wearing a red beanie and blue collared shirt"
           class="profile__avatar"
         />
         <div class="profile__info">
           <div class="profile__divider">
-            <h1 class="profile__name">Jacues Cousteau</h1>
+            <h1 class="profile__name"></h1>
             <button
               class="profile__button profile__button_type_edit"
               type="button"
             ></button>
           </div>
-          <p class="profile__job">Explorer</p>
+          <p class="profile__about"></p>
         </div>
         <button
           class="profile__button profile__button_type_add"
@@ -59,11 +64,11 @@
     <div class="modal modal_type_edit">
       <div class="modal__container">
         <h2 class="modal__title">Edit Profile</h2>
-        <form class="modal__form form" name="profile-edit-form" novalidate>
+        <form class="modal__form form" name="edit" novalidate>
           <label class="form__label">
             <input
               type="text"
-              id="form-name"
+              id="edit-name"
               name="name"
               class="form__input"
               placeholder="Name"
@@ -71,20 +76,20 @@
               maxlength="40"
               required
             />
-            <span class="form__error" id="form-name-error"></span>
+            <span class="form__error" id="edit-name-error"></span>
           </label>
           <label class="form__label">
             <input
               type="text"
-              id="form-description"
-              name="job"
+              id="edit-about"
+              name="about"
               class="form__input"
               placeholder="Description"
               minlength="2"
               maxlength="200"
               required
             />
-            <span class="form__error" id="form-description-error"></span>
+            <span class="form__error" id="edit-about-error"></span>
           </label>
           <button type="submit" class="form__submit">Save</button>
         </form>
@@ -95,11 +100,11 @@
     <div class="modal modal_type_card">
       <div class="modal__container">
         <h2 class="modal__title">New Image</h2>
-        <form class="modal__form form" name="card-add-form" novalidate>
+        <form class="modal__form form" name="card" novalidate>
           <label class="form__label">
             <input
               type="text"
-              id="form-title"
+              id="card-title"
               name="title"
               class="form__input"
               placeholder="Title"
@@ -107,21 +112,44 @@
               maxlength="30"
               required
             />
-            <span class="form__error" id="form-title-error"></span>
+            <span class="form__error" id="card-title-error"></span>
           </label>
           <label class="form__label">
             <input
               type="url"
-              id="form-link"
+              id="card-link"
               name="link"
               class="form__input"
               placeholder="Image Link"
               required
             />
-            <span class="form__error" id="form-link-error"></span>
+            <span class="form__error" id="card-link-error"></span>
           </label>
           <button type="submit" class="form__submit form__submit_inactive">
             Create
+          </button>
+        </form>
+        <button class="modal__close-button"></button>
+      </div>
+    </div>
+
+    <div class="modal modal_type_avatar">
+      <div class="modal__container">
+        <h2 class="modal__title">Change Profile Picture</h2>
+        <form class="modal__form form" name="avatar" novalidate>
+          <label class="form__label">
+            <input
+              type="url"
+              id="avatar-link"
+              name="link"
+              class="form__input"
+              placeholder="Image Link"
+              required
+            />
+            <span class="form__error" id="avatar-link-error"></span>
+          </label>
+          <button type="submit" class="form__submit form__submit_inactive">
+            Save
           </button>
         </form>
         <button class="modal__close-button"></button>

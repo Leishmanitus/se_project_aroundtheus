@@ -1,12 +1,18 @@
 export default class Card {
-  constructor({ title, link }, handlePreviewImage, templateElement) {
+  constructor(
+    { title, link },
+    handlePreviewImage,
+    handleDeleteImage,
+    templateElement
+  ) {
     this._title = title;
     this._link = link;
     this._cardElement = templateElement.content.querySelector(".card");
     this._handlePreviewImage = handlePreviewImage;
+    this._handleDeleteImage = handleDeleteImage;
   }
 
-  _deleteCard = () => {
+  deleteCard = () => {
     this._element.remove();
     this._element = null;
   };
@@ -20,7 +26,9 @@ export default class Card {
       const values = { title: this._title, link: this._link };
       this._handlePreviewImage(values);
     });
-    this._cardDeleteElement.addEventListener("click", this._deleteCard);
+    this._cardDeleteElement.addEventListener("click", () => {
+      this.handleDeleteImage();
+    });
     this._cardHeartButton.addEventListener("click", this._likeImageToggle);
   };
 

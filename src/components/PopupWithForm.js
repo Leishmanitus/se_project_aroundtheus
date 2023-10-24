@@ -13,6 +13,7 @@ export default class PopupWithForm extends Popup {
     for (const input of inputList) {
       inputObject[input.name] = input.value;
     }
+    console.log(inputObject);
     return inputObject;
   }
 
