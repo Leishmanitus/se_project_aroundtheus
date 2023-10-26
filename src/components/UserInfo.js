@@ -5,23 +5,44 @@ export default class UserInfo {
     this._aboutElement = this._profileElement.querySelector(".profile__about");
     this._avatarElement =
       this._profileElement.querySelector(".profile__avatar");
-    // this.userInfo = data;
   }
 
   getUserInfo() {
     return {
-      name: this._nameElement.textContent,
-      about: this._aboutElement.textContent,
+      name: this._name,
+      avatar: this._avatar,
+      about: this._about,
+      _id: this._id,
     };
   }
 
-  setUserInfo({ name, about }) {
-    this._nameElement.textContent = name;
-    this._aboutElement.textContent = about;
+  setAllInfo({ name, avatar, about, _id }) {
+    this._name = name;
+    this._avatar = avatar;
+    this._about = about;
+    this._id = _id;
+    this._placeUserInfo();
+    this._placeAvatar();
   }
 
-  setAvatar({ link }) {
-    this._avatarElement.src = link;
-    this._avatarElement.alt = this._nameElement.textContent;
+  setUserInfo({ name, about }) {
+    this._name = name;
+    this._about = about;
+    this._placeUserInfo();
+  }
+
+  _placeUserInfo() {
+    this._nameElement.textContent = this._name;
+    this._aboutElement.textContent = this._about;
+  }
+
+  setAvatar({ avatar }) {
+    this._avatar = avatar;
+    this._placeAvatar();
+  }
+
+  _placeAvatar() {
+    this._avatarElement.src = this._avatar;
+    this._avatarElement.alt = this._name;
   }
 }

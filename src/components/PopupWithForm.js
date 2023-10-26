@@ -13,7 +13,6 @@ export default class PopupWithForm extends Popup {
     for (const input of inputList) {
       inputObject[input.name] = input.value;
     }
-    console.log(inputObject);
     return inputObject;
   }
 
@@ -32,7 +31,7 @@ export default class PopupWithForm extends Popup {
     const values = this._getInputValues();
 
     event.preventDefault();
-    this._handleFormSubmit(values);
+    this._handleFormSubmit({ name: values.title, link: values.link });
   };
 
   setEventListeners() {

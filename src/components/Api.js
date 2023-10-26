@@ -16,6 +16,7 @@ export default class Api {
         }
         return Promise.reject(`Error: ${res.status}`);
       })
+      .then((data) => data)
       .catch((err) => console.error(err));
   }
 
@@ -51,9 +52,9 @@ export default class Api {
     })
       .then((res) => {
         if (res.ok) {
-          console.log(res.json());
           return res.json();
         }
+
         return Promise.reject(`Error: ${res.status}`);
       })
       .catch((err) => console.error(err));
@@ -105,6 +106,7 @@ export default class Api {
         if (res.ok) {
           return res.json();
         }
+
         return Promise.reject(`Error: ${res.status}`);
       })
       .catch((err) => console.error(err));
@@ -120,6 +122,7 @@ export default class Api {
         if (res.ok) {
           return res.json();
         }
+
         return Promise.reject(`Error: ${res.status}`);
       })
       .catch((err) => console.error(err));
@@ -135,6 +138,7 @@ export default class Api {
         if (res.ok) {
           return res.json();
         }
+
         return Promise.reject(`Error: ${res.status}`);
       })
       .catch((err) => console.error(err));
@@ -150,6 +154,7 @@ export default class Api {
         if (res.ok) {
           return res.json();
         }
+
         return Promise.reject(`Error: ${res.status}`);
       })
       .catch((err) => console.error(err));

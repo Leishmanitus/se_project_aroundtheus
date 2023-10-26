@@ -10,7 +10,7 @@ import Api from "../components/Api";
 
 //search DOM
 //profile constants
-const profile = document.querySelector(".profile");
+const profile = document.querySelector(".page__profile");
 const editButton = profile.querySelector(".profile__button_type_edit");
 const cardButton = profile.querySelector(".profile__button_type_add");
 const avatarButton = profile.querySelector(".profile__avatar-edit");
@@ -21,11 +21,11 @@ const templateElement = document.querySelector(".template");
 const renderCard = (item) => {
   const card = new Card(
     item,
-    ({ title, link }) => {
-      previewPopup.open(title, link);
+    ({ name, link }) => {
+      previewPopup.open({ title: name, link });
     },
-    () => {
-      confirmPopup.open();
+    ({ deleter }) => {
+      confirmPopup.open(deleter);
     },
     templateElement
   );
@@ -44,24 +44,27 @@ const api = new Api({
 });
 
 //profile section
-const userInfo = new UserInfo(".profile");
-userInfo.setUserInfo(api.getUserInformation());
-const profileSection = new Section(
-  {
-    data: api.getUserInformation().then((data) => {
-      const name = data.name;
-      const about = data.about;
-      const avatar = data.avatar;
-      return { name, about, avatar };
-    }),
-    renderer: (item) => {
-      userInfo.setUserInfo({ name: item.name, about: item.about });
-      userInfo.setAvatar({ title: item.name, link: item.avatar });
-    },
-  },
-  ".profile"
+const userInfo = new UserInfo(".page__profile");
+userInfo.setAllInfo(
+  api.getUserInformation().then((data) => {
+    const { name, avatar, about, _id } = data;
+    return { name, avatar, about, _id };
+  })
 );
-// profileSection.renderItems();
+// const profileSection = new Section(
+//   {
+//     data: [api.getUserInformation()],
+//     renderer: (item) => {
+//       userInfo.setAllInfo({
+//         name: item.name,
+//         avatar: item.avatar,
+//         about: item.about,
+//         _id: item._id,
+//       });
+//     },
+//   },
+//   ".profile"
+// );
 
 //cards section
 const cardList = new Section(
@@ -77,8 +80,8 @@ const editFormValidator = new FormValidation("edit", formData);
 editFormValidator.enableValidation();
 
 const editPopup = new PopupWithForm(".modal_type_edit", (values) => {
-  api.updateUserInformation(values).then(({ name, about }) => {
-    userInfo.setUserInfo({ name, about });
+  api.updateUserInformation(values).then((values) => {
+    userInfo.setUserInfo(values);
     editFormValidator.disableSubmit();
     editPopup.close();
   });
@@ -95,8 +98,8 @@ const cardFormValidator = new FormValidation("card", formData);
 cardFormValidator.enableValidation();
 
 const cardPopup = new PopupWithForm(".modal_type_card", (values) => {
-  api.postCard(values).then(({ title, link }) => {
-    renderCard({ title, link });
+  api.postCard(values).then(({ name, link }) => {
+    renderCard({ name, link });
     cardFormValidator.disableSubmit();
     cardPopup.resetForm();
     cardPopup.close();
@@ -113,13 +116,13 @@ avatarFormValidator.enableValidation();
 
 const editAvatarPopup = new PopupWithForm(".modal_type_avatar", (values) => {
   api.updateAvatar(values).then((item) => {
-    console.log(item);
-    userInfo.setAvatar(item);
+    userInfo.setUserInfo(item);
     avatarFormValidator.disableSubmit();
     editAvatarPopup.resetForm();
     editAvatarPopup.close();
   });
 });
+
 avatarButton.addEventListener("click", () => editAvatarPopup.open());
 
 //preview image popup
@@ -130,8 +133,12 @@ const confirmPopup = new PopupWithForm(".modal_type_confirm", () => {});
 
 // call everything down here <----------
 // cardList.clear();
+// profileSection.renderItems();
 // cardList.renderItems();
 
 // initCards.forEach((item) => {
 //   api.createCard(item);
 // });
+
+const url = new URL("../images/david-bailey.jpg", import.meta.url);
+console.log(url);

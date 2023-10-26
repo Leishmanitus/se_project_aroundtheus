@@ -23,8 +23,8 @@
           class="profile__avatar-edit"
         />
         <img
-          src="<%=require('./images/jacques-cousteau.jpg')%>"
-          alt="jacques-cousteau wearing a red beanie and blue collared shirt"
+          src="<%=require('./images/david-bailey.jpg')%>"
+          alt="David Bailey, bird watcher"
           class="profile__avatar"
         />
         <div class="profile__info">
@@ -126,7 +126,7 @@
             <span class="form__error" id="card-link-error"></span>
           </label>
           <button type="submit" class="form__submit form__submit_inactive">
-            Create
+            Save
           </button>
         </form>
         <button class="modal__close-button"></button>
@@ -167,7 +167,9 @@
     <div class="modal modal_type_confirm">
       <div class="modal__container">
         <h2 class="modal__title">Are you sure?</h2>
-        <button class="form__submit" type="button">Yes</button>
+        <form class="modal__form form" name="confirm" novalidate>
+          <button class="form__submit" type="button">Yes</button>
+        </form>
         <button class="modal__close-button" type="button"></button>
       </div>
     </div>
