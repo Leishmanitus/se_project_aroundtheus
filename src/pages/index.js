@@ -4,7 +4,7 @@ import PopupWithImage from "../components/PopupWithImage";
 import Section from "../components/Section";
 import Card from "../components/Card.js";
 import FormValidation from "../components/FormValidation.js";
-import { formData } from "../utils/constants.js";
+import { initCards, formData } from "../utils/constants.js";
 import UserInfo from "../components/UserInfo";
 import Api from "../components/Api";
 
@@ -21,8 +21,8 @@ const templateElement = document.querySelector(".template");
 const renderCard = (item) => {
   const card = new Card(
     item,
-    ({ name, link }) => {
-      previewPopup.open({ title: name, link });
+    ({ name, link, _id, owner, isLiked }) => {
+      previewPopup.open({ title: name, link, _id, owner, isLiked });
     },
     ({ deleter }) => {
       confirmPopup.open(deleter);
@@ -44,22 +44,23 @@ const api = new Api({
 });
 
 //profile section
-const userInfo = new UserInfo(".page__profile");
-userInfo.setAllInfo(
-  api.getUserInformation().then((data) => {
-    const { name, avatar, about, _id } = data;
-    return { name, avatar, about, _id };
-  })
-);
+const userInfo = new UserInfo(".profile");
+api.getUserInformation().then((data) => {
+  const { name, avatar, about, _id } = data;
+  userInfo.setAllInfo({ name, avatar, about, _id });
+});
+// const userData = api.getUserInformation().then((item) => {
+//   var item = item;
+// });
 // const profileSection = new Section(
 //   {
-//     data: [api.getUserInformation()],
-//     renderer: (item) => {
+//     data: userData.item,
+//     renderer: ({ name, avatar, about, _id }) => {
 //       userInfo.setAllInfo({
-//         name: item.name,
-//         avatar: item.avatar,
-//         about: item.about,
-//         _id: item._id,
+//         name: name,
+//         avatar: avatar,
+//         about: about,
+//         _id: _id,
 //       });
 //     },
 //   },
@@ -69,7 +70,7 @@ userInfo.setAllInfo(
 //cards section
 const cardList = new Section(
   {
-    data: api.getInitialCards(),
+    data: () => api.getInitialCards().then((items) => items),
     renderer: renderCard,
   },
   ".page__cards"
@@ -81,6 +82,7 @@ editFormValidator.enableValidation();
 
 const editPopup = new PopupWithForm(".modal_type_edit", (values) => {
   api.updateUserInformation(values).then((values) => {
+    console.log(values);
     userInfo.setUserInfo(values);
     editFormValidator.disableSubmit();
     editPopup.close();
@@ -98,8 +100,9 @@ const cardFormValidator = new FormValidation("card", formData);
 cardFormValidator.enableValidation();
 
 const cardPopup = new PopupWithForm(".modal_type_card", (values) => {
-  api.postCard(values).then(({ name, link }) => {
-    renderCard({ name, link });
+  api.postCard(values).then((values) => {
+    console.log(values);
+    renderCard(values);
     cardFormValidator.disableSubmit();
     cardPopup.resetForm();
     cardPopup.close();
@@ -115,8 +118,9 @@ const avatarFormValidator = new FormValidation("avatar", formData);
 avatarFormValidator.enableValidation();
 
 const editAvatarPopup = new PopupWithForm(".modal_type_avatar", (values) => {
-  api.updateAvatar(values).then((item) => {
-    userInfo.setUserInfo(item);
+  api.updateAvatar(values).then((values) => {
+    console.log(values);
+    userInfo.setUserInfo(values);
     avatarFormValidator.disableSubmit();
     editAvatarPopup.resetForm();
     editAvatarPopup.close();
@@ -132,13 +136,10 @@ const previewPopup = new PopupWithImage(".modal_type_preview");
 const confirmPopup = new PopupWithForm(".modal_type_confirm", () => {});
 
 // call everything down here <----------
-// cardList.clear();
+cardList.clear();
 // profileSection.renderItems();
-// cardList.renderItems();
+cardList.renderItems();
 
-// initCards.forEach((item) => {
-//   api.createCard(item);
-// });
-
-const url = new URL("../images/david-bailey.jpg", import.meta.url);
-console.log(url);
+initCards.forEach(({ name, link }) => {
+  api.postCard({ name, link });
+});

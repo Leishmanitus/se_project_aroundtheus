@@ -16,7 +16,6 @@ export default class Api {
         }
         return Promise.reject(`Error: ${res.status}`);
       })
-      .then((data) => data)
       .catch((err) => console.error(err));
   }
 
@@ -92,13 +91,13 @@ export default class Api {
       .catch((err) => console.error(err));
   }
 
-  postCard({ title, link }) {
+  postCard({ name, link }) {
     const cardsUrl = `${this._baseUrl}/cards`;
     return fetch(cardsUrl, {
       method: "POST",
       headers: this._headers,
       body: JSON.stringify({
-        name: title,
+        name: name,
         link: link,
       }),
     })

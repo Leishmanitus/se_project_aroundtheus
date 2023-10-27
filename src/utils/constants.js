@@ -1,39 +1,39 @@
-// const greatCormorant = new URL(
-//   "../images/great-cormorant.jpg",
-//   import.meta.url
-// );
-// const kingFisher = new URL("../images/kingfisher.jpg", import.meta.url);
-// const greenParakeet = new URL("../images/green-parakeet.jpg", import.meta.url);
-// const pelican = new URL("../images/pelican.jpg", import.meta.url);
-// const blackCrow = new URL("../images/crow.jpg", import.meta.url);
-// const canadaGoose = new URL("../images/canada-goose.jpg", import.meta.url);
+const greatCormorant = new URL(
+  "../images/great-cormorant.jpg",
+  import.meta.url
+);
+const kingFisher = new URL("../images/kingfisher.jpg", import.meta.url);
+const greenParakeet = new URL("../images/green-parakeet.jpg", import.meta.url);
+const pelican = new URL("../images/pelican.jpg", import.meta.url);
+const blackCrow = new URL("../images/crow.jpg", import.meta.url);
+const canadaGoose = new URL("../images/canada-goose.jpg", import.meta.url);
 
-// export const initCards = [
-//   {
-//     title: "Great Cormorant",
-//     link: greatCormorant,
-//   },
-//   {
-//     title: "Kingfisher",
-//     link: kingFisher,
-//   },
-//   {
-//     title: "Green Parakeet",
-//     link: greenParakeet,
-//   },
-//   {
-//     title: "Pelican",
-//     link: pelican,
-//   },
-//   {
-//     title: "Black Crow",
-//     link: blackCrow,
-//   },
-//   {
-//     title: "Canada Goose",
-//     link: canadaGoose,
-//   },
-// ];
+export const initCards = [
+  {
+    name: "Great Cormorant",
+    link: greatCormorant,
+  },
+  {
+    name: "Kingfisher",
+    link: kingFisher,
+  },
+  {
+    name: "Green Parakeet",
+    link: greenParakeet,
+  },
+  {
+    name: "Pelican",
+    link: pelican,
+  },
+  {
+    name: "Black Crow",
+    link: blackCrow,
+  },
+  {
+    name: "Canada Goose",
+    link: canadaGoose,
+  },
+];
 
 export const formData = {
   formSelector: ".form",

@@ -25,9 +25,10 @@ export default class UserInfo {
     this._placeAvatar();
   }
 
-  setUserInfo({ name, about }) {
+  setUserInfo({ name, about, _id }) {
     this._name = name;
     this._about = about;
+    this._id = _id;
     this._placeUserInfo();
   }
 

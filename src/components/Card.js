@@ -1,11 +1,11 @@
 export default class Card {
   constructor(
-    { name, link, _id, owner, isLiked },
+    { title, link, _id, owner, isLiked },
     handlePreviewImage,
     handleDeleteImage,
     templateElement
   ) {
-    this._title = name;
+    this._title = title;
     this._link = link;
     this._id = _id;
     this._owner = owner;
