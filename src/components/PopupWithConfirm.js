@@ -7,24 +7,22 @@ export default class PopupWithConfirm extends Popup {
     this._handleDelete = handleDelete;
   }
 
-  _handleSubmit = (event) => {
-    event.preventDefault();
-    this._handleDelete(event);
-    //put deleter in here
+  _handleSubmit = (data) => {
+    // event.preventDefault();
+    console.log(data);
+    this._handleDelete(data);
   };
 
-  open(deleter) {
+  open = ({ deleter, _id }) => {
     super.open();
-    this._deleter = deleter;
-  }
+    console.log(deleter, _id);
+    this._confirmElement.addEventListener("click", () =>
+      this._handleSubmit({ deleter, _id })
+    );
+  };
 
-  setEventListeners() {
-    super.setEventListeners();
-    this._confirmElement.addEventListener("submit", this._handleSubmit);
-  }
-
-  deleteEventListeners() {
+  deleteEventListeners = () => {
     super.deleteEventListeners();
-    this._confirmElement.removeEventListener("submit", this._handleSubmit);
-  }
+    this._confirmElement.removeEventListener("click", this._handleSubmit);
+  };
 }

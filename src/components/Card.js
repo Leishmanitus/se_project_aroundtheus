@@ -1,18 +1,18 @@
 export default class Card {
   constructor(
-    { title, link, _id, owner, isLiked },
+    { name, link, _id, owner, isLiked },
     handlePreviewImage,
-    handleDeleteImage,
+    handleDeleteCard,
     templateElement
   ) {
-    this._title = title;
+    this._title = name;
     this._link = link;
     this._id = _id;
     this._owner = owner;
     this._isLiked = isLiked;
     this._cardElement = templateElement.content.querySelector(".card");
     this._handlePreviewImage = handlePreviewImage;
-    this._handleDeleteImage = handleDeleteImage;
+    this._handleDeleteCard = handleDeleteCard;
   }
 
   deleteCard = () => {
@@ -20,19 +20,17 @@ export default class Card {
     this._element = null;
   };
 
-  _likeImageToggle = () => {
+  _likeToggle = () => {
     this._cardHeartButton.classList.toggle("card__heart-button_liked");
+    this._isLiked = !this._isLiked;
   };
 
   _setEventListeners = () => {
     this._cardImageElement.addEventListener("click", () => {
-      const values = { title: this._title, link: this._link };
-      this._handlePreviewImage(values);
+      this._handlePreviewImage({ name: this._title, link: this._link });
     });
-    this._cardDeleteElement.addEventListener("click", () => {
-      this._handleDeleteImage({ deleter: this.deleteCard });
-    });
-    this._cardHeartButton.addEventListener("click", this._likeImageToggle);
+    this._cardDeleteElement.addEventListener("click", this._handleDeleteCard);
+    this._cardHeartButton.addEventListener("click", this._likeToggle);
   };
 
   _cloneTemplate = () => {
@@ -46,7 +44,7 @@ export default class Card {
     this._cardCaption.textContent = this._title;
   };
 
-  generateCard() {
+  generateCard = () => {
     this._element = this._cloneTemplate();
     this._cardImageElement = this._element.querySelector(".card__image");
     this._cardCaption = this._element.querySelector(".card__caption");
@@ -60,9 +58,9 @@ export default class Card {
     this._setEventListeners();
 
     return this._element;
-  }
+  };
 
-  getInfo() {
+  getInfo = () => {
     return {
       name: this._title,
       link: this._link,
@@ -70,5 +68,5 @@ export default class Card {
       owner: this._owner,
       isLiked: this._isLiked,
     };
-  }
+  };
 }
