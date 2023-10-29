@@ -24,6 +24,7 @@ const renderCard = (item) => {
   const card = new Card(
     item,
     (title, link) => {
+      console.log(card.getInfo());
       previewPopup.open({ name: title, link: link });
     },
     () => {

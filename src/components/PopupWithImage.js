@@ -15,6 +15,6 @@ export default class PopupWithImage extends Popup {
 
   open({ name, link }) {
     super.open();
-    this.setSource(name, link);
+    this.setSource({ name, link });
   }
 }
