@@ -4,6 +4,7 @@ export default class PopupWithForm extends Popup {
   constructor(popupSelector, handleFormSubmit) {
     super({ popupSelector });
     this._popupForm = this._popupElement.querySelector(".form");
+    this._submitButton = this._popupForm.querySelector(".form__submit");
     this._handleFormSubmit = handleFormSubmit;
   }
 
@@ -32,6 +33,16 @@ export default class PopupWithForm extends Popup {
 
     event.preventDefault();
     this._handleFormSubmit(values);
+  };
+
+  toggleSaving = () => {
+    if (this._submitButton.classList.contains("form__submit_saving")) {
+      this._submitButton.classList.remove("form__submit_saving");
+      this._submitButton.textContent = "Save";
+    } else {
+      this._submitButton.classList.add("form__submit_saving");
+      this._submitButton.textContent = "Saving...";
+    }
   };
 
   setEventListeners() {

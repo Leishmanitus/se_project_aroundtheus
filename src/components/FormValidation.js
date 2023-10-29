@@ -54,7 +54,6 @@ export default class FormValidation {
     });
   }
 
-  //for use by add image form
   enableSubmit() {
     this._submitButton.classList.remove(this._data.inactiveButtonClass);
     this._submitButton.disabled = false;
@@ -71,7 +70,6 @@ export default class FormValidation {
     });
   }
 
-  //call from within the opened form
   enableValidation() {
     this._setEventListeners();
   }

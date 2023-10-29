@@ -8,8 +8,6 @@ export default class PopupWithConfirm extends Popup {
   }
 
   _handleSubmit = (data) => {
-    // event.preventDefault();
-    console.log(data);
     this._handleDelete(data);
   };
 

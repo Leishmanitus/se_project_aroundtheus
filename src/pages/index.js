@@ -23,12 +23,19 @@ const templateElement = document.querySelector(".template");
 const renderCard = (item) => {
   const card = new Card(
     item,
-    ({ name, link }) => {
-      previewPopup.open({ name, link });
+    (title, link) => {
+      previewPopup.open({ name: title, link: link });
     },
     () => {
-      // api.deleteCard(_id).then(() => deleter());
       confirmPopup.open({ deleter: card.deleteCard, _id: card.getInfo()._id });
+    },
+    (isLiked, cardId) => {
+      card.toggleLike();
+      if (isLiked) {
+        api.likeCard(cardId);
+      } else {
+        api.dislikeCard(cardId);
+      }
     },
     templateElement
   );
@@ -85,16 +92,18 @@ const editFormValidator = new FormValidation("edit", formData);
 editFormValidator.enableValidation();
 
 const editPopup = new PopupWithForm(".modal_type_edit", (values) => {
+  editPopup.toggleSaving();
   api.updateUserInformation(values).then((values) => {
     userInfo.setUserInfo(values);
-    editFormValidator.disableSubmit();
     editPopup.close();
+    editPopup.toggleSaving();
   });
 });
 
 editButton.addEventListener("click", () => {
   const newValues = userInfo.getUserInfo();
   editPopup.setInputValues([newValues.name, newValues.about]);
+  editFormValidator.resetValidation();
   editPopup.open();
 });
 
@@ -104,11 +113,13 @@ cardFormValidator.enableValidation();
 
 const cardPopup = new PopupWithForm(".modal_type_card", ({ title, link }) => {
   const values = { name: title, link: link };
+  cardPopup.toggleSaving();
   api.postCard(values).then((values) => {
     renderCard(values);
     cardFormValidator.disableSubmit();
     cardPopup.resetForm();
     cardPopup.close();
+    cardPopup.toggleSaving();
   });
 });
 
@@ -121,11 +132,13 @@ const avatarFormValidator = new FormValidation("avatar", formData);
 avatarFormValidator.enableValidation();
 
 const editAvatarPopup = new PopupWithForm(".modal_type_avatar", (values) => {
+  editAvatarPopup.toggleSaving();
   api.updateAvatar(values).then(({ name, link }) => {
     userInfo.setAvatar({ name, link });
     avatarFormValidator.disableSubmit();
     editAvatarPopup.resetForm();
     editAvatarPopup.close();
+    editAvatarPopup.toggleSaving();
   });
 });
 
@@ -139,9 +152,8 @@ const confirmPopup = new PopupWithConfirm(
   ".modal_type_confirm",
   ({ deleter, _id }) => {
     api.deleteCard(_id).then(() => {
-      deleter.deleteCard();
+      deleter();
       confirmPopup.close();
-      console.log("Delete successful");
     });
   }
 );
