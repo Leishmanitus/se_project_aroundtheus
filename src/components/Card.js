@@ -37,6 +37,13 @@ export default class Card {
     });
   };
 
+  removeDeleteListener = () => {
+    this._cardDeleteElement.removeEventListener(
+      "click",
+      this._handleDeleteCard
+    );
+  };
+
   _cloneTemplate = () => {
     const card = this._cardElement.cloneNode(true);
     return card;

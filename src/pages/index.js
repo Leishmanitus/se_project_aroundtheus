@@ -14,7 +14,7 @@ import Api from "../components/Api";
 const profile = document.querySelector(".page__profile");
 const editButton = profile.querySelector(".profile__button_type_edit");
 const cardButton = profile.querySelector(".profile__button_type_add");
-const avatarButton = profile.querySelector(".profile__avatar-edit");
+const avatarButton = profile.querySelector(".profile__avatar");
 
 //template constant
 const templateElement = document.querySelector(".template");
@@ -24,7 +24,6 @@ const renderCard = (item) => {
   const card = new Card(
     item,
     (title, link) => {
-      console.log(card.getInfo());
       previewPopup.open({ name: title, link: link });
     },
     () => {

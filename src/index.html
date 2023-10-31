@@ -17,12 +17,10 @@
 
     <main class="page__content">
       <section class="page__profile profile">
-        <img
-          src="<%=require('./images/pencil.svg')%>"
-          alt="a pencil over the profile pic"
-          class="profile__avatar-edit"
-        />
-        <img src="" alt="" class="profile__avatar" />
+        <div class="profile__avatar-container">
+          <button class="profile__button profile__button_type_avatar"></button>
+          <img src="" alt="" class="profile__avatar" />
+        </div>
         <div class="profile__info">
           <div class="profile__divider">
             <h1 class="profile__name"></h1>
