@@ -39,9 +39,9 @@ export default class Api {
       .catch((err) => console.error(err));
   }
 
-  updateAvatar({ link }) {
+  updateAvatar({ avatar }) {
     const newAvatarInfo = JSON.stringify({
-      avatar: link,
+      avatar,
     });
     const avatarUrl = `${this._baseUrl}/users/me/avatar`;
     return fetch(avatarUrl, {

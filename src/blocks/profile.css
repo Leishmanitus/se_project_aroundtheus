@@ -10,6 +10,10 @@
   transition: opacity 0.3s ease-in-out;
 }
 
+.profile__button:hover {
+  opacity: 0.6;
+}
+
 .profile__avatar-container {
   width: 120px;
   height: 120px;
@@ -36,7 +40,7 @@
   bottom: 0;
   border: none;
   border-radius: 50%;
-  background: url("../images/pencil.svg") center/26px no-repeat;
+  background: rgba(0, 0, 0, 0) url("../images/pencil.svg") center/26px no-repeat;
   cursor: pointer;
   opacity: 0;
   transition: background-color 0.3s ease-in-out;
@@ -45,6 +49,7 @@
 }
 
 .profile__button_type_avatar:hover {
+  opacity: 1;
   background-color: rgba(0, 0, 0, 0.8);
 }
 
@@ -88,10 +93,6 @@
   white-space: nowrap;
   overflow: hidden;
   margin: 0;
-}
-
-.profile__button:hover {
-  opacity: 0.6;
 }
 
 .profile__button_type_edit {

@@ -14,7 +14,7 @@ import Api from "../components/Api";
 const profile = document.querySelector(".page__profile");
 const editButton = profile.querySelector(".profile__button_type_edit");
 const cardButton = profile.querySelector(".profile__button_type_add");
-const avatarButton = profile.querySelector(".profile__avatar");
+const avatarButton = profile.querySelector(".profile__button_type_avatar");
 
 //template constant
 const templateElement = document.querySelector(".template");
@@ -29,12 +29,11 @@ const renderCard = (item) => {
     () => {
       confirmPopup.open({ deleter: card.deleteCard, _id: card.getInfo()._id });
     },
-    (isLiked, cardId) => {
-      card.toggleLike();
+    ({ isLiked, _id }) => {
       if (isLiked) {
-        api.likeCard(cardId);
+        api.likeCard(_id).then(() => card.likeCard);
       } else {
-        api.dislikeCard(cardId);
+        api.dislikeCard(_id).then(() => card.dislikeCard);
       }
     },
     templateElement
@@ -131,16 +130,19 @@ cardButton.addEventListener("click", () => {
 const avatarFormValidator = new FormValidation("avatar", formData);
 avatarFormValidator.enableValidation();
 
-const editAvatarPopup = new PopupWithForm(".modal_type_avatar", (values) => {
-  editAvatarPopup.toggleSaving();
-  api.updateAvatar(values).then(({ name, link }) => {
-    userInfo.setAvatar({ name, link });
-    avatarFormValidator.disableSubmit();
-    editAvatarPopup.resetForm();
-    editAvatarPopup.close();
+const editAvatarPopup = new PopupWithForm(
+  ".modal_type_avatar",
+  ({ avatar }) => {
     editAvatarPopup.toggleSaving();
-  });
-});
+    api.updateAvatar({ avatar }).then(({ avatar }) => {
+      userInfo.setAvatar({ avatar });
+      avatarFormValidator.disableSubmit();
+      editAvatarPopup.resetForm();
+      editAvatarPopup.close();
+      editAvatarPopup.toggleSaving();
+    });
+  }
+);
 
 avatarButton.addEventListener("click", () => editAvatarPopup.open());
 

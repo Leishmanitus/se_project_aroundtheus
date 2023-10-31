@@ -18,23 +18,24 @@ export default class Card {
   }
 
   deleteCard = () => {
+    this._removeEventListeners();
     this._element.remove();
     this._element = null;
   };
 
-  toggleLike = () => {
-    this._cardHeartButton.classList.toggle("card__heart-button_liked");
-    this._isLiked = !this._isLiked;
+  _setEventListeners = () => {
+    this._cardImageElement.addEventListener("click", this._previewImage);
+    this._cardDeleteElement.addEventListener("click", this._handleDeleteCard);
+    this._cardLikeButton.addEventListener("click", this._toggleLike);
   };
 
-  _setEventListeners = () => {
-    this._cardImageElement.addEventListener("click", () =>
-      this._handlePreviewImage(this._title, this._link)
+  _removeEventListeners = () => {
+    this._cardImageElement.removeEventListener("click", this._previewImage);
+    this._cardDeleteElement.removeEventListener(
+      "click",
+      this._handleDeleteCard
     );
-    this._cardDeleteElement.addEventListener("click", this._handleDeleteCard);
-    this._cardHeartButton.addEventListener("click", () => {
-      this._handleLike(this._isLiked, this._id);
-    });
+    this._cardLikeButton.removeEventListener("click", this._toggleLike);
   };
 
   removeDeleteListener = () => {
@@ -55,6 +56,34 @@ export default class Card {
     this._cardCaption.textContent = this._title;
   };
 
+  _setLikeStatus = () => {
+    if (this._isLiked) {
+      this.likeCard();
+    } else {
+      this.dislikeCard();
+    }
+  };
+
+  _toggleLike = () => {
+    this._cardLikeButton.classList.toggle("card__heart-button_liked");
+    this._isLiked = !this._isLiked;
+    this._handleLike({ isLiked: this._isLiked, _id: this._id });
+  };
+
+  likeCard = () => {
+    this._cardLikeButton.classList.add("card__heart-button_liked");
+    this._isLiked = true;
+  };
+
+  dislikeCard = () => {
+    this._cardLikeButton.classList.remove("card__heart-button_liked");
+    this._isLiked = false;
+  };
+
+  _previewImage = () => {
+    this._handlePreviewImage(this._title, this._link);
+  };
+
   generateCard = () => {
     this._element = this._cloneTemplate();
     this._cardImageElement = this._element.querySelector(".card__image");
@@ -62,7 +91,9 @@ export default class Card {
     this._cardDeleteElement = this._element.querySelector(
       ".card__trash-button"
     );
-    this._cardHeartButton = this._element.querySelector(".card__heart-button");
+    this._cardLikeButton = this._element.querySelector(".card__heart-button");
+
+    this._setLikeStatus();
 
     this._setImageValues();
 
