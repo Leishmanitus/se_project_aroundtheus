@@ -24,62 +24,66 @@ export default class Api {
     return `${this._baseUrl}/cards/${cardId}/likes`;
   };
 
+  _request = (url, options) => {
+    return fetch(url, options).then(this._getResponse);
+  };
+
   getUserInformation = () => {
-    return fetch(this._endpoints.userUrl, {
+    return this._request(this._endpoints.userUrl, {
       method: "GET",
       headers: this._headers,
-    }).then((res) => this._getResponse(res));
+    });
   };
 
   updateUserInformation = ({ name, about }) => {
-    return fetch(this._endpoints.userUrl, {
+    return this._request(this._endpoints.userUrl, {
       method: "PATCH",
       headers: this._headers,
       body: this._stringifyData({ name, about }),
-    }).then((res) => this._getResponse(res));
+    });
   };
 
   updateAvatar = ({ avatar }) => {
-    return fetch(this._endpoints.avatarUrl, {
+    return this._request(this._endpoints.avatarUrl, {
       method: "PATCH",
       headers: this._headers,
       body: this._stringifyData({ avatar }),
-    }).then((res) => this._getResponse(res));
+    });
   };
 
   getInitialCards = () => {
-    return fetch(this._endpoints.cardsUrl, {
+    return this._request(this._endpoints.cardsUrl, {
       method: "GET",
       headers: this._headers,
-    }).then((res) => this._getResponse(res));
+    });
   };
 
   postCard = ({ name, link }) => {
-    return fetch(this._endpoints.cardsUrl, {
+    return this._request(this._endpoints.cardsUrl, {
       method: "POST",
       headers: this._headers,
       body: this._stringifyData({ name, link }),
-    }).then((res) => this._getResponse(res));
+    });
   };
 
   deleteCard = (cardId) => {
-    return fetch(this._endpoints.cardsUrl + `/${cardId}`, {
+    return this._request(this._endpoints.cardsUrl + `/${cardId}`, {
       method: "DELETE",
       headers: this._headers,
-    }).then((res) => this._getResponse(res));
+    });
   };
 
   likeCard(cardId) {
-    return fetch(this._likesUrl(cardId), {
+    return this._request(this._likesUrl(cardId), {
       method: "PUT",
       headers: this._headers,
-    }).then((res) => this._getResponse(res));
+    });
   }
 
   dislikeCard(cardId) {
-    return fetch(this._likesUrl(cardId), {
+    return this._request(this._likesUrl(cardId), {
       method: "DELETE",
       headers: this._headers,
-    }).then((res) => this._getResponse(res));
+    });
   }
 }
