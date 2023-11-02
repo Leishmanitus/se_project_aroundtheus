@@ -103,7 +103,7 @@ const editFormValidator = new FormValidation("edit", formData);
 editFormValidator.enableValidation();
 
 const editPopup = new PopupWithForm(".modal_type_edit", (values) => {
-  editPopup.renderSaving();
+  editPopup.renderSaving(true);
   api
     .updateUserInformation(values)
     .then((values) => {
@@ -111,12 +111,12 @@ const editPopup = new PopupWithForm(".modal_type_edit", (values) => {
       editPopup.close();
     })
     .catch((err) => console.error(err))
-    .finally(() => editPopup.renderSave());
+    .finally(() => editPopup.renderSaving());
 });
 
 editButton.addEventListener("click", () => {
-  const newValues = userInfo.getUserInfo();
-  editPopup.setInputValues([newValues.name, newValues.about]);
+  const { name, about } = userInfo.getUserInfo();
+  editPopup.setInputValues([name, about]);
   editFormValidator.resetValidation();
   editPopup.open();
 });
@@ -127,7 +127,7 @@ cardFormValidator.enableValidation();
 
 const cardPopup = new PopupWithForm(".modal_type_card", ({ title, link }) => {
   const values = { name: title, link: link };
-  cardPopup.renderSaving();
+  cardPopup.renderSaving(true);
   api
     .postCard(values)
     .then((values) => {
@@ -137,7 +137,7 @@ const cardPopup = new PopupWithForm(".modal_type_card", ({ title, link }) => {
       cardPopup.close();
     })
     .catch((err) => console.error(err))
-    .finally(() => cardPopup.renderSave());
+    .finally(() => cardPopup.renderSaving());
 });
 
 cardButton.addEventListener("click", () => {
@@ -151,7 +151,7 @@ avatarFormValidator.enableValidation();
 const editAvatarPopup = new PopupWithForm(
   ".modal_type_avatar",
   ({ avatar }) => {
-    editAvatarPopup.renderSaving();
+    editAvatarPopup.renderSaving(true);
     api
       .updateAvatar({ avatar })
       .then(({ avatar }) => {
@@ -161,7 +161,7 @@ const editAvatarPopup = new PopupWithForm(
         editAvatarPopup.close();
       })
       .catch((err) => console.error(err))
-      .finally(() => editAvatarPopup.renderSave());
+      .finally(() => editAvatarPopup.renderSaving());
   }
 );
 
