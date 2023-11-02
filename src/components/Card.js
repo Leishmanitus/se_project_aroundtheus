@@ -26,7 +26,7 @@ export default class Card {
   _setEventListeners = () => {
     this._cardImageElement.addEventListener("click", this._previewImage);
     this._cardDeleteElement.addEventListener("click", this._handleDeleteCard);
-    this._cardLikeButton.addEventListener("click", this._toggleLike);
+    this._cardLikeButton.addEventListener("click", this._handleLikeStatus);
   };
 
   _removeEventListeners = () => {
@@ -35,7 +35,7 @@ export default class Card {
       "click",
       this._handleDeleteCard
     );
-    this._cardLikeButton.removeEventListener("click", this._toggleLike);
+    this._cardLikeButton.removeEventListener("click", this._handleLikeStatus);
   };
 
   removeDeleteListener = () => {
@@ -64,9 +64,7 @@ export default class Card {
     }
   };
 
-  _toggleLike = () => {
-    this._cardLikeButton.classList.toggle("card__heart-button_liked");
-    this._isLiked = !this._isLiked;
+  _handleLikeStatus = () => {
     this._handleLike({ isLiked: this._isLiked, _id: this._id });
   };
 

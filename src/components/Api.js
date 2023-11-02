@@ -2,159 +2,84 @@ export default class Api {
   constructor({ baseUrl, headers }) {
     this._baseUrl = baseUrl;
     this._headers = headers;
+    this._endpoints = {
+      userUrl: this._baseUrl + "/users/me",
+      avatarUrl: this._baseUrl + "/users/me/avatar",
+      cardsUrl: this._baseUrl + "/cards",
+    };
   }
 
-  getUserInformation() {
-    const userUrl = `${this._baseUrl}/users/me`;
-    return fetch(userUrl, {
+  _getResponse = (res) => {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(`Error: ${res.status}`);
+  };
+
+  _stringifyData = (data) => {
+    return JSON.stringify(data);
+  };
+
+  _likesUrl = (cardId) => {
+    return `${this._baseUrl}/cards/${cardId}/likes`;
+  };
+
+  getUserInformation = () => {
+    return fetch(this._endpoints.userUrl, {
       method: "GET",
       headers: this._headers,
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Error: ${res.status}`);
-      })
-      .catch((err) => console.error(err));
-  }
+    }).then((res) => this._getResponse(res));
+  };
 
-  updateUserInformation({ name, about }) {
-    const newBodyInfo = JSON.stringify({
-      name,
-      about,
-    });
-    const userUrl = `${this._baseUrl}/users/me`;
-    return fetch(userUrl, {
+  updateUserInformation = ({ name, about }) => {
+    return fetch(this._endpoints.userUrl, {
       method: "PATCH",
       headers: this._headers,
-      body: newBodyInfo,
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Error: ${res.status}`);
-      })
-      .catch((err) => console.error(err));
-  }
+      body: this._stringifyData({ name, about }),
+    }).then((res) => this._getResponse(res));
+  };
 
-  updateAvatar({ avatar }) {
-    const newAvatarInfo = JSON.stringify({
-      avatar,
-    });
-    const avatarUrl = `${this._baseUrl}/users/me/avatar`;
-    return fetch(avatarUrl, {
+  updateAvatar = ({ avatar }) => {
+    return fetch(this._endpoints.avatarUrl, {
       method: "PATCH",
       headers: this._headers,
-      body: newAvatarInfo,
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
+      body: this._stringifyData({ avatar }),
+    }).then((res) => this._getResponse(res));
+  };
 
-        return Promise.reject(`Error: ${res.status}`);
-      })
-      .catch((err) => console.error(err));
-  }
-
-  // getCard(cardId) {
-  //   const cardUrl = `${this._baseUrl}/cards/${cardId}`;
-  //   return fetch(cardUrl, {
-  //     method: "GET",
-  //     headers: this._headers,
-  //   })
-  //     .then((res) => {
-  //       if (res.ok) {
-  //         return res.json();
-  //       }
-
-  //       return Promise.reject(`Error: ${res.status}`);
-  //     })
-  //     .catch((err) => console.error(err));
-  // }
-
-  getInitialCards() {
-    const cardsUrl = `${this._baseUrl}/cards`;
-    return fetch(cardsUrl, {
+  getInitialCards = () => {
+    return fetch(this._endpoints.cardsUrl, {
       method: "GET",
       headers: this._headers,
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
+    }).then((res) => this._getResponse(res));
+  };
 
-        return Promise.reject(`Error: ${res.status}`);
-      })
-      .catch((err) => console.error(err));
-  }
-
-  postCard({ name, link }) {
-    const cardsUrl = `${this._baseUrl}/cards`;
-    return fetch(cardsUrl, {
+  postCard = ({ name, link }) => {
+    return fetch(this._endpoints.cardsUrl, {
       method: "POST",
       headers: this._headers,
-      body: JSON.stringify({
-        name: name,
-        link: link,
-      }),
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
+      body: this._stringifyData({ name, link }),
+    }).then((res) => this._getResponse(res));
+  };
 
-        return Promise.reject(`Error: ${res.status}`);
-      })
-      .catch((err) => console.error(err));
-  }
-
-  deleteCard(cardId) {
-    const cardUrl = `${this._baseUrl}/cards/${cardId}`;
-    return fetch(cardUrl, {
+  deleteCard = (cardId) => {
+    return fetch(this._endpoints.cardsUrl + `/${cardId}`, {
       method: "DELETE",
       headers: this._headers,
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Error: ${res.status}`);
-      })
-      .catch((err) => console.error(err));
-  }
+    }).then((res) => this._getResponse(res));
+  };
 
   likeCard(cardId) {
-    const likesUrl = `${this._baseUrl}/cards/${cardId}/likes`;
-    return fetch(likesUrl, {
+    return fetch(this._likesUrl(cardId), {
       method: "PUT",
       headers: this._headers,
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-
-        return Promise.reject(`Error: ${res.status}`);
-      })
-      .catch((err) => console.error(err));
+    }).then((res) => this._getResponse(res));
   }
 
   dislikeCard(cardId) {
-    const likesUrl = `${this._baseUrl}/cards/${cardId}/likes`;
-    return fetch(likesUrl, {
+    return fetch(this._likesUrl(cardId), {
       method: "DELETE",
       headers: this._headers,
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-
-        return Promise.reject(`Error: ${res.status}`);
-      })
-      .catch((err) => console.error(err));
+    }).then((res) => this._getResponse(res));
   }
 }

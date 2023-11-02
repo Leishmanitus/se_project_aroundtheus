@@ -35,14 +35,14 @@ export default class PopupWithForm extends Popup {
     this._handleFormSubmit(values);
   };
 
-  toggleSaving = () => {
-    if (this._submitButton.classList.contains("form__submit_saving")) {
-      this._submitButton.classList.remove("form__submit_saving");
-      this._submitButton.textContent = "Save";
-    } else {
-      this._submitButton.classList.add("form__submit_saving");
-      this._submitButton.textContent = "Saving...";
-    }
+  renderSave = () => {
+    this._submitButton.classList.remove("form__submit_saving");
+    this._submitButton.textContent = "Save";
+  };
+
+  renderSaving = () => {
+    this._submitButton.classList.add("form__submit_saving");
+    this._submitButton.textContent = "Saving...";
   };
 
   setEventListeners() {

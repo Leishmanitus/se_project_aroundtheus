@@ -12,8 +12,7 @@ export default class PopupWithConfirm extends Popup {
   };
 
   open = ({ deleter, _id }) => {
-    this._popupElement.classList.add("modal_opened");
-    this.setEventListeners();
+    super.open();
     this._data = { deleter, _id };
   };
 

@@ -9,8 +9,15 @@ export const formData = {
   descriptionId: "#edit-about",
   titleId: "#card-title",
   linkId: "#card-link",
-  avatarId: "#avatar-link",
+  avatarId: "#avatar-url",
   inactiveButtonClass: "form__submit_inactive",
   inputErrorClass: "form__input_type_error",
   errorVisibleClass: "form__error_visible",
+};
+
+export const userData = {
+  profileSelector: ".profile",
+  nameSelector: ".profile__name",
+  aboutSelector: ".profile__about",
+  avatarSelector: ".profile__avatar",
 };

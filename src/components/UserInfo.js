@@ -1,10 +1,14 @@
 export default class UserInfo {
-  constructor(profileSelector) {
+  constructor({
+    profileSelector,
+    nameSelector,
+    aboutSelector,
+    avatarSelector,
+  }) {
     this._profileElement = document.querySelector(profileSelector);
-    this._nameElement = this._profileElement.querySelector(".profile__name");
-    this._aboutElement = this._profileElement.querySelector(".profile__about");
-    this._avatarElement =
-      this._profileElement.querySelector(".profile__avatar");
+    this._nameElement = this._profileElement.querySelector(nameSelector);
+    this._aboutElement = this._profileElement.querySelector(aboutSelector);
+    this._avatarElement = this._profileElement.querySelector(avatarSelector);
   }
 
   getUserInfo = () => {
