@@ -51,7 +51,7 @@ export default class Api {
     });
   };
 
-  getInitialCards = () => {
+  getCards = () => {
     return this._request(this._endpoints.cardsUrl, {
       method: "GET",
       headers: this._headers,

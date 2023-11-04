@@ -1,7 +1,7 @@
 export default class FormValidation {
-  constructor(formSelector, data) {
+  constructor(formElement, data) {
     this._data = data;
-    this._formElement = document.forms[formSelector];
+    this._formElement = formElement;
     this._inputElements = [
       ...this._formElement.querySelectorAll(this._data.inputSelector),
     ];

@@ -10,6 +10,10 @@ export default class PopupWithForm extends Popup {
     this._handleFormSubmit = handleFormSubmit;
   }
 
+  getFormName = () => {
+    return this._popupForm.name;
+  };
+
   _getInputValues = () => {
     const inputObject = {};
     for (const input of this._inputs) {

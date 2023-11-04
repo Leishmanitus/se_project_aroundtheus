@@ -5,7 +5,7 @@ import PopupWithConfirm from "../components/PopupWithConfirm";
 import Section from "../components/Section";
 import Card from "../components/Card.js";
 import FormValidation from "../components/FormValidation.js";
-import { formData, userData } from "../utils/constants.js";
+import { formData, userData, popupData } from "../utils/constants.js";
 import UserInfo from "../components/UserInfo";
 import Api from "../components/Api";
 
@@ -52,6 +52,34 @@ const renderCard = ({ name, link, _id, owner, isLiked }) => {
   return card;
 };
 
+const handleSubmit = (request, popupInstance, loadingText = "Saving...") => {
+  popupInstance.renderSaving(true, loadingText);
+  request()
+    .then(() => {
+      popupInstance.close();
+    })
+    .catch((err) => console.error(err))
+    .finally(() => popupInstance.renderSaving());
+};
+
+// instantiating form validators
+const formValidators = {};
+
+const enableValidation = (config) => {
+  const formList = [...document.querySelectorAll(config.formSelector)];
+  formList.forEach((formElement) => {
+    const validator = new FormValidation(formElement, config);
+    // here you get the name of the form
+    const formName = `${formElement.name}-form`;
+
+    // here you store a validator by the `name` of the form
+    formValidators[formName] = validator;
+    validator.enableValidation();
+  });
+};
+
+enableValidation(formData);
+
 //create objects
 //api
 const api = new Api({
@@ -66,78 +94,53 @@ const api = new Api({
 //profile section
 const userInfo = new UserInfo(userData);
 
-api
-  .getUserInformation()
-  .then(({ name, avatar, about, _id }) => {
-    userInfo.setAllInfo({
-      name,
-      avatar,
-      about,
-      _id,
-    });
-  })
-  .catch((err) => console.error(err));
-
 //cards section
 const cardList = new Section(
   {
-    renderer: () => {
-      api
-        .getInitialCards()
-        .then((items) => {
-          items.forEach((item) => {
-            const { name, link, _id, owner, isLiked } = item;
-            cardList.addItem(
-              renderCard({ name, link, _id, owner, isLiked }).generateCard()
-            );
-          });
-        })
-        .catch((err) => console.error(err));
+    renderer: (item) => {
+      return renderCard(item).generateCard();
     },
   },
   ".page__cards"
 );
 
-//edit form
-const editFormValidator = new FormValidation("edit", formData);
-editFormValidator.enableValidation();
+Promise.all([api.getUserInformation(), api.getCards()])
+  .then(([profileData, cardData]) => {
+    userInfo.setAllInfo(profileData);
+    cardList.setItems(cardData);
+    cardList.renderItems();
+  })
+  .catch((err) => console.error(err));
 
-const editPopup = new PopupWithForm(".modal_type_edit", (values) => {
-  editPopup.renderSaving(true);
-  api
-    .updateUserInformation(values)
-    .then((values) => {
+//edit form
+const editPopup = new PopupWithForm(popupData.editPopup, ({ title, about }) => {
+  const values = { name: title, about };
+  const makeRequest = () => {
+    return api.updateUserInformation(values).then((values) => {
       userInfo.setUserInfo(values);
-      editPopup.close();
-    })
-    .catch((err) => console.error(err))
-    .finally(() => editPopup.renderSaving());
+    });
+  };
+  handleSubmit(makeRequest, editPopup);
 });
 
 editButton.addEventListener("click", () => {
   const { name, about } = userInfo.getUserInfo();
   editPopup.setInputValues([name, about]);
-  editFormValidator.resetValidation();
+  formValidators["edit-form"].resetValidation();
   editPopup.open();
 });
 
 //card form
-const cardFormValidator = new FormValidation("card", formData);
-cardFormValidator.enableValidation();
-
-const cardPopup = new PopupWithForm(".modal_type_card", ({ title, link }) => {
-  const values = { name: title, link: link };
-  cardPopup.renderSaving(true);
-  api
-    .postCard(values)
-    .then((values) => {
+const cardPopup = new PopupWithForm(popupData.cardPopup, ({ title, link }) => {
+  const values = { name: title, link };
+  const makeRequest = () => {
+    return api.postCard(values).then((values) => {
       cardList.addItem(renderCard(values).generateCard());
-      cardFormValidator.disableSubmit();
       cardPopup.resetForm();
-      cardPopup.close();
-    })
-    .catch((err) => console.error(err))
-    .finally(() => cardPopup.renderSaving());
+      formValidators["card-form"].disableSubmit();
+    });
+  };
+  handleSubmit(makeRequest, cardPopup);
 });
 
 cardButton.addEventListener("click", () => {
@@ -145,23 +148,18 @@ cardButton.addEventListener("click", () => {
 });
 
 //edit avatar form
-const avatarFormValidator = new FormValidation("avatar", formData);
-avatarFormValidator.enableValidation();
-
 const editAvatarPopup = new PopupWithForm(
-  ".modal_type_avatar",
+  popupData.avatarPopup,
   ({ avatar }) => {
-    editAvatarPopup.renderSaving(true);
-    api
-      .updateAvatar({ avatar })
-      .then(({ avatar }) => {
-        userInfo.setAvatar({ avatar });
-        avatarFormValidator.disableSubmit();
+    const values = { avatar };
+    const makeRequest = () => {
+      return api.updateAvatar(values).then((values) => {
+        userInfo.setAvatar(values);
         editAvatarPopup.resetForm();
-        editAvatarPopup.close();
-      })
-      .catch((err) => console.error(err))
-      .finally(() => editAvatarPopup.renderSaving());
+        formValidators["avatar-form"].disableSubmit();
+      });
+    };
+    handleSubmit(makeRequest, editAvatarPopup);
   }
 );
 
@@ -183,7 +181,3 @@ const confirmPopup = new PopupWithConfirm(
       .catch((err) => console.error(err));
   }
 );
-
-// call everything down here <----------
-cardList.clear();
-cardList.renderItems();

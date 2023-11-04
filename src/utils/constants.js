@@ -5,7 +5,7 @@ export const formData = {
   editFormId: "#edit",
   cardFormId: "#card",
   avatarFormId: "#avatar",
-  nameId: "#edit-name",
+  nameId: "#edit-title",
   descriptionId: "#edit-about",
   titleId: "#card-title",
   linkId: "#card-link",
@@ -20,4 +20,10 @@ export const userData = {
   nameSelector: ".profile__name",
   aboutSelector: ".profile__about",
   avatarSelector: ".profile__avatar",
+};
+
+export const popupData = {
+  editPopup: ".modal_type_edit",
+  cardPopup: ".modal_type_card",
+  avatarPopup: ".modal_type_avatar",
 };
