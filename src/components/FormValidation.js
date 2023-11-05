@@ -1,7 +1,7 @@
 export default class FormValidation {
-  constructor(formSelector, data) {
+  constructor(formElement, data) {
     this._data = data;
-    this._formElement = document.forms[formSelector];
+    this._formElement = formElement;
     this._inputElements = [
       ...this._formElement.querySelectorAll(this._data.inputSelector),
     ];
@@ -54,7 +54,6 @@ export default class FormValidation {
     });
   }
 
-  //for use by add image form
   enableSubmit() {
     this._submitButton.classList.remove(this._data.inactiveButtonClass);
     this._submitButton.disabled = false;
@@ -71,7 +70,6 @@ export default class FormValidation {
     });
   }
 
-  //call from within the opened form
   enableValidation() {
     this._setEventListeners();
   }
